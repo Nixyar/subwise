@@ -1,17 +1,17 @@
 <div class="dashboard-page">
   <header class="page-header">
-    <h1 class="page-title">Дашборд</h1>
-    <p class="page-subtitle">Твои подписки под контролем</p>
+    <h1 class="page-title">{{ copy().title }}</h1>
+    <p class="page-subtitle">{{ copy().subtitle }}</p>
   </header>
 
   <div class="stats-grid">
     <div class="stat-card">
-      <span class="stat-card__label">В месяц</span>
-      <span class="stat-card__value">{{ formatMoney(subService.totalMonthly()) }}</span>
+      <span class="stat-card__label">{{ copy().monthly }}</span>
+      <span class="stat-card__value">{{ monthlyTotalText() }}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-card__label">В год</span>
-      <span class="stat-card__value">{{ formatMoney(subService.totalYearly()) }}</span>
+      <span class="stat-card__label">{{ copy().yearly }}</span>
+      <span class="stat-card__value">{{ yearlyTotalText() }}</span>
     </div>
 
     <div class="category-card">
@@ -19,24 +19,24 @@
         <div class="category-card__chart-inner"></div>
       </div>
       <div class="category-card__content">
-        <span class="category-card__label">Категории</span>
-        <div class="category-card__value">{{ getCategoryName(subService.topCategory()) }}</div>
-        <div class="category-card__hint">Топ категория</div>
+        <span class="category-card__label">{{ copy().categories }}</span>
+        <div class="category-card__value">{{ getTopCategoryLabel() }}</div>
+        <div class="category-card__hint">{{ copy().topCategory }}</div>
       </div>
     </div>
 
     <div class="score-card">
       <div class="score-card__header">
         <mat-icon class="score-card__icon">insights</mat-icon>
-        <span class="score-card__title">Оценка SubWise</span>
+        <span class="score-card__title">{{ copy().score }}</span>
       </div>
-      <p class="score-card__text">У тебя {{ subService.subscriptions().length }} активных подписок. Загляни в советы.</p>
+      <p class="score-card__text">{{ getScoreText() }}</p>
     </div>
   </div>
 
   <section class="subscriptions-section">
     <div class="section-header">
-      <h2 class="section-title">Мои подписки</h2>
+      <h2 class="section-title">{{ copy().subscriptions }}</h2>
     </div>
 
     <div class="subscriptions-card">
@@ -51,7 +51,7 @@
                 <h3 class="subscription-row__title">
                   {{ sub.name }}
                   @if (sub.isTrial) {
-                    <span class="subscription-row__badge">Пробный период</span>
+                    <span class="subscription-row__badge">{{ getTrialLabel() }}</span>
                   }
                 </h3>
                 @let days = daysUntil(sub.nextBillingDate);
@@ -63,13 +63,13 @@
                   }"
                 >
                   @if (days === 0) {
-                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> Спишут сегодня!
+                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> {{ getBillingStatus(days, sub.nextBillingDate) }}
                   } @else if (days === 1) {
-                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> Завтра спишут!
+                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> {{ getBillingStatus(days, sub.nextBillingDate) }}
                   } @else if (days > 1 && days <= 3) {
-                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> Спишут через {{ days }} {{ getDaysLabel(days) }}
+                    <mat-icon class="subscription-row__meta-icon">warning</mat-icon> {{ getBillingStatus(days, sub.nextBillingDate) }}
                   } @else {
-                    Списание: {{ formatDateRu(sub.nextBillingDate) }}
+                    {{ getBillingStatus(days, sub.nextBillingDate) }}
                   }
                 </p>
               </div>
@@ -81,7 +81,8 @@
           </div>
         } @empty {
           <div class="subscriptions-empty">
-            У тебя пока нет добавленных подписок.
+            <p class="subscriptions-empty__text">{{ copy().noSubscriptions }}</p>
+            <a routerLink="/add" class="subscriptions-empty__action">{{ copy().addSubscriptionAction }}</a>
           </div>
         }
       </div>

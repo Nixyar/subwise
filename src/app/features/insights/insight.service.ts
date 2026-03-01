@@ -1,17 +1,28 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { annualCost, formatDateRu, formatMoney, getDaysLabel, getCycleLabel } from '../../core/utils/formatters';
+import { annualCost } from '../../core/utils/formatters';
+import { interpolate } from '../../core/i18n/interpolate';
+import { LocaleService } from '../../core/i18n/locale.service';
 import { Insight } from './insight.model';
 import { SubscriptionService } from '../subscriptions/subscription.service';
+import { translations } from '../../core/i18n/translations';
 
 @Injectable({ providedIn: 'root' })
 export class InsightService {
   private subService = inject(SubscriptionService);
+  private localeService = inject(LocaleService);
 
   totalPotentialSavings = computed(() => {
     return this.insights().reduce((acc, insight) => acc + (insight.savings || 0), 0);
   });
 
+  hasPotentialSavings = computed(() => {
+    return this.insights().some((insight) => Boolean(insight.savings && insight.savingsCurrency));
+  });
+
   insights = computed(() => {
+    const locale = this.localeService.locale();
+    const copy = translations[locale].insight;
+    const subscriptionCopy = translations[locale].subscriptions;
     const subs = this.subService.subscriptions();
     const insights: Insight[] = [];
     const today = new Date();
@@ -26,9 +37,17 @@ export class InsightService {
           insights.push({
             id: `forgotten-${sub.id}`,
             type: 'warning',
-            title: `Забытая подписка: ${sub.name}`,
-            description: `Ты не открывал ${sub.name} уже ${diffDays} ${getDaysLabel(diffDays)}, а платишь ${formatMoney(sub.price, sub.currency)}/${getCycleLabel(sub.cycle)}. Это ${formatMoney(yearlyCost, sub.currency)} в год.`,
-            savings: yearlyCost
+            title: interpolate(copy.forgottenTitle, {name: sub.name}),
+            description: interpolate(copy.forgottenDescription, {
+              name: sub.name,
+              days: diffDays,
+              daysLabel: this.localeService.getDaysLabel(diffDays),
+              price: this.localeService.formatMoney(sub.price, sub.currency),
+              cycle: subscriptionCopy.cycles[sub.cycle],
+              yearly: this.localeService.formatMoney(yearlyCost, sub.currency),
+            }),
+            savings: yearlyCost,
+            savingsCurrency: sub.currency,
           });
         }
       }
@@ -41,9 +60,14 @@ export class InsightService {
           insights.push({
             id: `trial-${sub.id}`,
             type: 'trial',
-            title: `Скоро закончится пробный период: ${sub.name}`,
-            description: `Пробный период закончится через ${diffDays} ${getDaysLabel(diffDays)} (${formatDateRu(trialEnd)}). Отмени сейчас, если не планируешь пользоваться сервисом.`,
-            savings: annualCost(sub)
+            title: interpolate(copy.trialTitle, {name: sub.name}),
+            description: interpolate(copy.trialDescription, {
+              days: diffDays,
+              daysLabel: this.localeService.getDaysLabel(diffDays),
+              date: this.localeService.formatDate(trialEnd),
+            }),
+            savings: annualCost(sub),
+            savingsCurrency: sub.currency,
           });
         }
       }
@@ -53,8 +77,8 @@ export class InsightService {
          insights.push({
             id: `family-${sub.id}`,
             type: 'suggestion',
-            title: `Дешевле вместе: ${sub.name}`,
-            description: `Семейный тариф Spotify обычно выгоднее личного, если делить оплату с близкими. Проверь, не дешевле ли перейти на общий план.`,
+            title: interpolate(copy.familyTitle, {name: sub.name}),
+            description: copy.familyDescription,
          });
       }
 
@@ -63,17 +87,18 @@ export class InsightService {
          insights.push({
             id: `alt-${sub.id}`,
             type: 'info',
-            title: `Бесплатная альтернатива для ${sub.name}`,
-            description: `Вместо платного Todoist можно попробовать встроенные Напоминания на телефоне или Microsoft To Do без дополнительной оплаты.`,
-            savings: annualCost(sub)
+            title: interpolate(copy.alternativeTitle, {name: sub.name}),
+            description: copy.todoistAlternative,
+            savings: annualCost(sub),
+            savingsCurrency: sub.currency,
          });
       }
       if (sub.name.toLowerCase().includes('dropbox') && sub.price > 0) {
          insights.push({
             id: `alt-${sub.id}`,
             type: 'info',
-            title: `Бесплатная альтернатива для ${sub.name}`,
-            description: `Если тебе не нужен большой объём хранилища, вместо Dropbox можно рассмотреть бесплатные тарифы других облачных сервисов.`,
+            title: interpolate(copy.alternativeTitle, {name: sub.name}),
+            description: copy.dropboxAlternative,
          });
       }
       
@@ -82,28 +107,46 @@ export class InsightService {
           insights.push({
             id: `annual-${sub.id}`,
             type: 'suggestion',
-            title: `Годовая ловушка: ${sub.name}`,
-            description: `${sub.name} стоит ${formatMoney(sub.price, sub.currency)}/мес., это ${formatMoney(sub.price * 12, sub.currency)} в год. Если смотришь не каждый месяц, выгоднее подключать сервис только по мере необходимости.`,
+            title: interpolate(copy.annualTitle, {name: sub.name}),
+            description: interpolate(copy.annualDescription, {
+              name: sub.name,
+              monthly: this.localeService.formatMoney(sub.price, sub.currency),
+              yearly: this.localeService.formatMoney(sub.price * 12, sub.currency),
+            }),
           });
       }
     });
 
     // 6. AI Duplicates
     const aiKeywords = ['chatgpt', 'claude', 'midjourney', 'copilot', 'openai'];
-    const aiSubs = subs.filter(s => aiKeywords.some(kw => s.name.toLowerCase().includes(kw)));
-    if (aiSubs.length > 1) {
-      const totalAiCost = aiSubs.reduce((acc, s) => acc + annualCost(s), 0);
-      const cheapest = [...aiSubs].sort((a, b) => a.price - b.price)[0];
+    const aiSubs = subs.filter((s) => aiKeywords.some((kw) => s.name.toLowerCase().includes(kw)));
+    const aiSubsByCurrency = new Map<string, typeof aiSubs>();
+
+    aiSubs.forEach((sub) => {
+      aiSubsByCurrency.set(sub.currency, [...(aiSubsByCurrency.get(sub.currency) || []), sub]);
+    });
+
+    aiSubsByCurrency.forEach((group, currency) => {
+      if (group.length <= 1) {
+        return;
+      }
+
+      const totalAiCost = group.reduce((acc, s) => acc + annualCost(s), 0);
+      const cheapest = [...group].sort((a, b) => annualCost(a) - annualCost(b))[0];
       const savings = totalAiCost - annualCost(cheapest);
-      
+
       insights.push({
-        id: 'ai-duplicates',
+        id: `ai-duplicates-${currency}`,
         type: 'suggestion',
-        title: 'Дубли AI-сервисов',
-        description: `У тебя ${aiSubs.length} подписки на нейросети (${aiSubs.map(s => s.name).join(', ')}). Обычно для работы хватает одной мощной модели. Оставь одну и сэкономь.`,
-        savings: savings
+        title: copy.aiDuplicatesTitle,
+        description: interpolate(copy.aiDuplicatesDescription, {
+          count: group.length,
+          names: group.map((s) => s.name).join(', '),
+        }),
+        savings,
+        savingsCurrency: currency as typeof group[number]['currency'],
       });
-    }
+    });
 
     return insights;
   });

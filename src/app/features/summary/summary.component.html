@@ -1,7 +1,7 @@
 <div class="summary-page">
   <header class="summary-header">
-    <h1 class="summary-header__title">Мой итог</h1>
-    <p class="summary-header__subtitle">Поделись своими результатами и оцени траты на подписки</p>
+    <h1 class="summary-header__title">{{ copy().title }}</h1>
+    <p class="summary-header__subtitle">{{ copy().subtitle }}</p>
   </header>
 
   <div id="summary-card" class="summary-card">
@@ -15,34 +15,32 @@
       </div>
 
       <div>
-        <p class="summary-card__label">Я трачу на подписки</p>
-        <h2 class="summary-card__value">
-          {{ formatMoney(subService.totalMonthly()) }}<span class="summary-card__value-unit">/мес.</span>
-        </h2>
+        <p class="summary-card__label">{{ copy().spendingLabel }}</p>
+        <h2 class="summary-card__value">{{ monthlyTotalText() }}</h2>
       </div>
 
       <div class="summary-card__divider"></div>
 
       <div class="summary-card__stats">
         <div class="summary-card__stat">
-          <span class="summary-card__stat-label">Всего подписок:</span>
+          <span class="summary-card__stat-label">{{ copy().totalSubscriptions }}</span>
           <span class="summary-card__stat-value">{{ subService.subscriptions().length }}</span>
         </div>
         <div class="summary-card__stat">
-          <span class="summary-card__stat-label">Топ категория:</span>
-          <span class="summary-card__stat-value">{{ getCategoryName(subService.topCategory()) }}</span>
+          <span class="summary-card__stat-label">{{ copy().topCategory }}</span>
+          <span class="summary-card__stat-value">{{ getTopCategoryLabel() }}</span>
         </div>
         <div class="summary-card__stat">
-          <span class="summary-card__stat-label">Самая дорогая:</span>
-          <span class="summary-card__stat-value">{{ mostExpensive()?.name || 'Нет' }} ({{ mostExpensiveLabel() }})</span>
+          <span class="summary-card__stat-label">{{ copy().mostExpensive }}</span>
+          <span class="summary-card__stat-value">{{ mostExpensive()?.name || getNoneLabel() }} ({{ mostExpensiveLabel() }})</span>
         </div>
         <div class="summary-card__stat">
-          <span class="summary-card__stat-label">Потенциальная экономия:</span>
-          <span class="summary-card__stat-value summary-card__stat-value--accent">{{ formatMoney(potentialSavings()) }}/год</span>
+          <span class="summary-card__stat-label">{{ copy().potentialSavings }}</span>
+          <span class="summary-card__stat-value summary-card__stat-value--accent">{{ potentialSavingsText() }}</span>
         </div>
       </div>
 
-      <p class="summary-card__footnote">Проверь свои подписки в SubWise</p>
+      <p class="summary-card__footnote">{{ copy().footnote }}</p>
     </div>
   </div>
 
@@ -52,7 +50,7 @@
       class="copy-button"
     >
       <mat-icon class="copy-button__icon">content_copy</mat-icon>
-      {{ isCopied() ? 'Скопировано!' : 'Скопировать картинку' }}
+      {{ isCopied() ? copy().copied : copy().copyImage }}
     </button>
   </div>
 </div>

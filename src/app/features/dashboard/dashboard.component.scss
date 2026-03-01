@@ -56,8 +56,10 @@
 .stat-card__value {
   margin-top: 0.5rem;
   color: #111827;
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 300;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 .category-card {
@@ -242,9 +244,35 @@
 }
 
 .subscriptions-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
   padding: 2rem;
-  color: #6b7280;
   text-align: center;
+}
+
+.subscriptions-empty__text {
+  color: #6b7280;
+}
+
+.subscriptions-empty__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 9999px;
+  background: #111827;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.subscriptions-empty__action:hover {
+  background: #1f2937;
 }
 
 @media (min-width: 768px) {

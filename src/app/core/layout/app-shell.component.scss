@@ -23,8 +23,16 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
   padding: 1.5rem;
+  gap: 1rem;
+}
+
+.brand__identity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
 }
 
 .brand__icon {
@@ -51,7 +59,7 @@
 
 .sidebar__nav {
   flex: 1;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   padding: 0 1rem;
 }
 
@@ -76,6 +84,47 @@
 
 .sidebar__cta {
   padding: 1rem;
+}
+
+.language-picker--mobile {
+  width: fit-content;
+  margin: 1rem 1.5rem 0 auto;
+}
+
+.language-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 4rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  background: #fff;
+  color: #374151;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.language-picker__trigger:hover {
+  border-color: #c7d2fe;
+  background: #f9fafb;
+}
+
+.language-picker__trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.language-picker__code {
+  letter-spacing: 0.08em;
+}
+
+.language-picker__icon {
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
 }
 
 .primary-link {
@@ -168,7 +217,54 @@
     padding-bottom: 0;
   }
 
+  .language-picker--mobile {
+    display: none;
+  }
+
   .bottom-nav {
     display: none;
   }
+}
+
+@media (max-width: 767px) {
+  .language-picker--desktop {
+    display: none;
+  }
+
+  .brand {
+    justify-content: flex-start;
+  }
+}
+
+:host ::ng-deep .language-menu {
+  min-width: 11.5rem;
+}
+
+:host ::ng-deep .language-menu__item {
+  min-height: 2.75rem;
+}
+
+:host ::ng-deep .language-menu__item .mat-mdc-menu-item-text {
+  width: 100%;
+}
+
+.language-menu__row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.language-menu__native {
+  color: #111827;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.language-menu__meta {
+  flex-shrink: 0;
+  color: #6b7280;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
 }

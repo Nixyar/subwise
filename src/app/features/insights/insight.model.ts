@@ -1,3 +1,5 @@
+import { Currency } from '../subscriptions/subscription.model';
+
 export type InsightType = 'warning' | 'suggestion' | 'info' | 'trial';
 
 export interface Insight {
@@ -6,4 +8,5 @@ export interface Insight {
   title: string;
   description: string;
   savings?: number;
+  savingsCurrency?: Currency;
 }

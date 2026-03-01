@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { SubscriptionService } from './subscription.service';
 import { Router } from '@angular/router';
 import { Category, Currency, Cycle, Subscription } from './subscription.model';
-import { getCurrencyLabel } from '../../core/utils/formatters';
+import { LocaleService } from '../../core/i18n/locale.service';
+import { translations } from '../../core/i18n/translations';
 
 @Component({
   selector: 'app-add-subscription',
@@ -29,8 +30,10 @@ import { getCurrencyLabel } from '../../core/utils/formatters';
 export class AddSubscriptionComponent {
   private fb = inject(FormBuilder);
   private subService = inject(SubscriptionService);
+  private localeService = inject(LocaleService);
   router = inject(Router);
-  getCurrencyLabel = getCurrencyLabel;
+  copy = computed(() => translations[this.localeService.locale()].addSubscription);
+  readonly currencies: Currency[] = ['RUB', 'USD', 'EUR'];
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -63,5 +66,17 @@ export class AddSubscriptionComponent {
       this.subService.addSubscription(newSub);
       this.router.navigate(['/']);
     }
+  }
+
+  getCurrencyLabel(currency: Currency): string {
+    return translations[this.localeService.locale()].subscriptions.currencies[currency];
+  }
+
+  getCategoryLabel(category: Category): string {
+    return translations[this.localeService.locale()].subscriptions.categories[category];
+  }
+
+  getCycleLabel(cycle: Cycle): string {
+    return this.copy()[cycle === 'month' ? 'monthly' : 'yearly'];
   }
 }
