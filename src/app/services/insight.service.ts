@@ -95,7 +95,7 @@ export class InsightService {
     });
 
     // 6. AI Duplicates
-    const aiKeywords = ['chatgpt', 'claude', 'gemini', 'midjourney', 'copilot', 'openai'];
+    const aiKeywords = ['chatgpt', 'claude', 'midjourney', 'copilot', 'openai'];
     const aiSubs = subs.filter(s => aiKeywords.some(kw => s.name.toLowerCase().includes(kw)));
     if (aiSubs.length > 1) {
       const totalAiCost = aiSubs.reduce((acc, s) => acc + (s.cycle === 'month' ? s.price * 12 : s.price), 0);
