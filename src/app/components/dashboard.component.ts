@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubscriptionService } from '../services/subscription.service';
 import { MatIconModule } from '@angular/material/icon';
+import { formatDateRu, formatMoney, getCategoryName, getCycleLabel, getDaysLabel } from '../utils/formatters';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col">
           <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">В месяц</span>
-          <span class="text-4xl font-light text-gray-900 mt-2">\${{ subService.totalMonthly() | number:'1.2-2' }}</span>
+          <span class="text-4xl font-light text-gray-900 mt-2">{{ formatMoney(subService.totalMonthly()) }}</span>
         </div>
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col">
           <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">В год</span>
-          <span class="text-4xl font-light text-gray-900 mt-2">\${{ subService.totalYearly() | number:'1.2-2' }}</span>
+          <span class="text-4xl font-light text-gray-900 mt-2">{{ formatMoney(subService.totalYearly()) }}</span>
         </div>
         
         <!-- Doughnut Chart Card -->
@@ -40,9 +41,9 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="bg-indigo-50 rounded-2xl p-6 shadow-sm border border-indigo-100 flex flex-col justify-center items-start">
           <div class="flex items-center text-indigo-700 mb-2">
             <mat-icon class="mr-2">insights</mat-icon>
-            <span class="font-medium">SubWise Score</span>
+            <span class="font-medium">Оценка SubWise</span>
           </div>
-          <p class="text-sm text-indigo-900">У тебя {{ subService.subscriptions().length }} активных подписок. Загляни в Insights!</p>
+          <p class="text-sm text-indigo-900">У тебя {{ subService.subscriptions().length }} активных подписок. Загляни в инсайты.</p>
         </div>
       </div>
 
@@ -64,7 +65,7 @@ import { MatIconModule } from '@angular/material/icon';
                     <h3 class="font-medium text-gray-900 flex items-center">
                       {{ sub.name }}
                       @if (sub.isTrial) {
-                        <span class="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 rounded-full">Trial</span>
+                        <span class="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 rounded-full">Пробный период</span>
                       }
                     </h3>
                     @let days = daysUntil(sub.nextBillingDate);
@@ -74,16 +75,16 @@ import { MatIconModule } from '@angular/material/icon';
                       } @else if (days === 1) {
                         <mat-icon class="text-[14px] w-[14px] h-[14px] mr-1">warning</mat-icon> Завтра спишут!
                       } @else if (days > 1 && days <= 3) {
-                        <mat-icon class="text-[14px] w-[14px] h-[14px] mr-1">warning</mat-icon> Спишут через {{days}} дня
+                        <mat-icon class="text-[14px] w-[14px] h-[14px] mr-1">warning</mat-icon> Спишут через {{ days }} {{ getDaysLabel(days) }}
                       } @else {
-                        Списание: {{ sub.nextBillingDate | date }}
+                        Списание: {{ formatDateRu(sub.nextBillingDate) }}
                       }
                     </p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <div class="font-medium text-gray-900">\${{ sub.price }}</div>
-                  <div class="text-xs text-gray-500">/ {{ sub.cycle === 'month' ? 'мес' : 'год' }}</div>
+                  <div class="font-medium text-gray-900">{{ formatMoney(sub.price, sub.currency) }}</div>
+                  <div class="text-xs text-gray-500">/ {{ getCycleLabel(sub.cycle) }}</div>
                 </div>
               </div>
             } @empty {
@@ -99,6 +100,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DashboardComponent {
   subService = inject(SubscriptionService);
+  formatMoney = formatMoney;
+  formatDateRu = formatDateRu;
+  getDaysLabel = getDaysLabel;
+  getCycleLabel = getCycleLabel;
 
   getCategoryIcon(category: string): string {
     const icons: Record<string, string> = {
@@ -113,15 +118,7 @@ export class DashboardComponent {
   }
 
   getCategoryName(category: string): string {
-    const names: Record<string, string> = {
-      'streaming': 'Стриминг',
-      'music': 'Музыка',
-      'cloud': 'Облако',
-      'sport': 'Спорт',
-      'software': 'Софт',
-      'other': 'Другое'
-    };
-    return names[category] || category;
+    return getCategoryName(category);
   }
 
   daysUntil(dateStr: string): number {

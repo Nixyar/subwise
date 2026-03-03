@@ -1,5 +1,6 @@
 import { Injectable, computed, inject } from '@angular/core';
 import { SubscriptionService } from './subscription.service';
+import { annualCost, formatDateRu, formatMoney, getDaysLabel, getCycleLabel } from '../utils/formatters';
 
 export interface Insight {
   id: string;
@@ -28,12 +29,12 @@ export class InsightService {
         const lastUsed = new Date(sub.lastUsedDate);
         const diffDays = Math.floor((today.getTime() - lastUsed.getTime()) / (1000 * 3600 * 24));
         if (diffDays > 30 && !sub.isTrial) {
-          const yearlyCost = sub.cycle === 'month' ? sub.price * 12 : sub.price;
+          const yearlyCost = annualCost(sub);
           insights.push({
             id: `forgotten-${sub.id}`,
             type: 'warning',
             title: `Забытая подписка: ${sub.name}`,
-            description: `Ты не открывал ${sub.name} уже ${diffDays} дней, а платишь $${sub.price}/${sub.cycle === 'month' ? 'мес' : 'год'}. Это $${yearlyCost.toFixed(2)}/год.`,
+            description: `Ты не открывал ${sub.name} уже ${diffDays} ${getDaysLabel(diffDays)}, а платишь ${formatMoney(sub.price, sub.currency)}/${getCycleLabel(sub.cycle)}. Это ${formatMoney(yearlyCost, sub.currency)} в год.`,
             savings: yearlyCost
           });
         }
@@ -47,20 +48,20 @@ export class InsightService {
           insights.push({
             id: `trial-${sub.id}`,
             type: 'trial',
-            title: `Скоро списание: ${sub.name} (Trial)`,
-            description: `Пробный период заканчивается через ${diffDays} дней (${trialEnd.toLocaleDateString()}). Отмени сейчас, если не планируешь использовать.`,
-            savings: sub.cycle === 'month' ? sub.price * 12 : sub.price
+            title: `Скоро закончится пробный период: ${sub.name}`,
+            description: `Пробный период закончится через ${diffDays} ${getDaysLabel(diffDays)} (${formatDateRu(trialEnd)}). Отмени сейчас, если не планируешь пользоваться сервисом.`,
+            savings: annualCost(sub)
           });
         }
       }
 
       // 3. Cheaper together
-      if (sub.name.toLowerCase().includes('spotify') && sub.price > 5 && sub.price < 12) {
+      if (sub.name.toLowerCase().includes('spotify') && sub.price > 300 && sub.price < 1000) {
          insights.push({
             id: `family-${sub.id}`,
             type: 'suggestion',
             title: `Дешевле вместе: ${sub.name}`,
-            description: `Spotify Individual $10.99/мес → Family $16.99/мес на 6 человек = $2.83 каждый. Экономия огромная, если найти друзей.`,
+            description: `Семейный тариф Spotify обычно выгоднее личного, если делить оплату с близкими. Проверь, не дешевле ли перейти на общий план.`,
          });
       }
 
@@ -70,8 +71,8 @@ export class InsightService {
             id: `alt-${sub.id}`,
             type: 'info',
             title: `Бесплатная альтернатива для ${sub.name}`,
-            description: `Вместо Todoist Premium можно использовать встроенные Напоминания в телефоне или Microsoft To Do бесплатно.`,
-            savings: sub.cycle === 'month' ? sub.price * 12 : sub.price
+            description: `Вместо платного Todoist можно попробовать встроенные Напоминания на телефоне или Microsoft To Do без дополнительной оплаты.`,
+            savings: annualCost(sub)
          });
       }
       if (sub.name.toLowerCase().includes('dropbox') && sub.price > 0) {
@@ -79,7 +80,7 @@ export class InsightService {
             id: `alt-${sub.id}`,
             type: 'info',
             title: `Бесплатная альтернатива для ${sub.name}`,
-            description: `Вместо Dropbox Plus можно использовать 15GB Google Drive бесплатно, если тебе не нужно много места.`,
+            description: `Если тебе не нужен большой объём хранилища, вместо Dropbox можно рассмотреть бесплатные тарифы других облачных сервисов.`,
          });
       }
       
@@ -89,7 +90,7 @@ export class InsightService {
             id: `annual-${sub.id}`,
             type: 'suggestion',
             title: `Годовая ловушка: ${sub.name}`,
-            description: `Netflix $${sub.price}/мес = $${(sub.price * 12).toFixed(2)}/год. Если не уверен, что будешь смотреть весь год — отменяй в месяцы простоя.`,
+            description: `${sub.name} стоит ${formatMoney(sub.price, sub.currency)}/мес., это ${formatMoney(sub.price * 12, sub.currency)} в год. Если смотришь не каждый месяц, выгоднее подключать сервис только по мере необходимости.`,
           });
       }
     });
@@ -98,9 +99,9 @@ export class InsightService {
     const aiKeywords = ['chatgpt', 'claude', 'midjourney', 'copilot', 'openai'];
     const aiSubs = subs.filter(s => aiKeywords.some(kw => s.name.toLowerCase().includes(kw)));
     if (aiSubs.length > 1) {
-      const totalAiCost = aiSubs.reduce((acc, s) => acc + (s.cycle === 'month' ? s.price * 12 : s.price), 0);
+      const totalAiCost = aiSubs.reduce((acc, s) => acc + annualCost(s), 0);
       const cheapest = [...aiSubs].sort((a, b) => a.price - b.price)[0];
-      const savings = totalAiCost - (cheapest.cycle === 'month' ? cheapest.price * 12 : cheapest.price);
+      const savings = totalAiCost - annualCost(cheapest);
       
       insights.push({
         id: 'ai-duplicates',

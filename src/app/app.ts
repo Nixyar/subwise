@@ -25,7 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
           </a>
           <a routerLink="/insights" routerLinkActive="bg-indigo-50 text-indigo-700" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium">
             <mat-icon class="mr-3">lightbulb</mat-icon>
-            Insights
+            Инсайты
           </a>
           <a routerLink="/summary" routerLinkActive="bg-indigo-50 text-indigo-700" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium">
             <mat-icon class="mr-3">share</mat-icon>
@@ -54,7 +54,7 @@ import {MatIconModule} from '@angular/material/icon';
         </a>
         <a routerLink="/insights" routerLinkActive="text-indigo-600" class="flex flex-col items-center justify-center w-full h-full text-gray-500">
           <mat-icon>lightbulb</mat-icon>
-          <span class="text-[10px] font-medium mt-1">Insights</span>
+          <span class="text-[10px] font-medium mt-1">Инсайты</span>
         </a>
         <div class="relative -top-5">
           <a routerLink="/add" class="flex items-center justify-center w-14 h-14 bg-indigo-600 text-white rounded-full shadow-lg shadow-indigo-600/30">

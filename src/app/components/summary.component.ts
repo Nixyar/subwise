@@ -4,6 +4,7 @@ import { SubscriptionService } from '../services/subscription.service';
 import { InsightService } from '../services/insight.service';
 import { MatIconModule } from '@angular/material/icon';
 import html2canvas from 'html2canvas';
+import { formatMoney, getCategoryName, getCycleLabel } from '../utils/formatters';
 
 @Component({
   selector: 'app-summary',
@@ -13,7 +14,7 @@ import html2canvas from 'html2canvas';
     <div class="p-6 max-w-5xl mx-auto space-y-8 flex flex-col items-center">
       <header class="text-center w-full">
         <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Мой итог</h1>
-        <p class="text-gray-500 mt-1">Поделись своими результатами с друзьями</p>
+        <p class="text-gray-500 mt-1">Поделись своими результатами и оцени траты на подписки</p>
       </header>
 
       <!-- The Card to be captured -->
@@ -30,7 +31,7 @@ import html2canvas from 'html2canvas';
           
           <div>
             <p class="text-indigo-100 text-sm uppercase tracking-widest font-medium mb-1">Я трачу на подписки</p>
-            <h2 class="text-6xl font-bold tracking-tighter">\${{ subService.totalMonthly() | number:'1.0-0' }}<span class="text-2xl font-normal text-indigo-200">/мес</span></h2>
+            <h2 class="text-6xl font-bold tracking-tighter">{{ formatMoney(subService.totalMonthly()) }}<span class="text-2xl font-normal text-indigo-200">/мес.</span></h2>
           </div>
           
           <div class="w-full h-px bg-white/20"></div>
@@ -46,15 +47,15 @@ import html2canvas from 'html2canvas';
             </div>
             <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
               <span class="text-indigo-100 text-sm">Самая дорогая:</span>
-              <span class="font-medium">{{ mostExpensive()?.name || 'Нет' }} (\${{ mostExpensive()?.price }})</span>
+              <span class="font-medium">{{ mostExpensive()?.name || 'Нет' }} ({{ mostExpensiveLabel() }})</span>
             </div>
             <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
               <span class="text-indigo-100 text-sm">Потенциальная экономия:</span>
-              <span class="font-bold text-emerald-300">\${{ potentialSavings() | number:'1.0-0' }}/год</span>
+              <span class="font-bold text-emerald-300">{{ formatMoney(potentialSavings()) }}/год</span>
             </div>
           </div>
           
-          <p class="text-xs text-indigo-200 opacity-80 pt-4">Проверь свои подписки на subwise.app</p>
+          <p class="text-xs text-indigo-200 opacity-80 pt-4">Проверь свои подписки в SubWise</p>
         </div>
       </div>
 
@@ -72,6 +73,7 @@ export class SummaryComponent {
   subService = inject(SubscriptionService);
   insightService = inject(InsightService);
   isCopied = signal(false);
+  formatMoney = formatMoney;
 
   mostExpensive = () => {
     const subs = this.subService.subscriptions();
@@ -80,20 +82,21 @@ export class SummaryComponent {
   };
 
   getCategoryName(category: string): string {
-    const names: Record<string, string> = {
-      'streaming': 'Стриминг',
-      'music': 'Музыка',
-      'cloud': 'Облако',
-      'sport': 'Спорт',
-      'software': 'Софт',
-      'other': 'Другое'
-    };
-    return names[category] || category;
+    return getCategoryName(category);
   }
 
   potentialSavings = () => {
     return this.insightService.insights().reduce((acc, insight) => acc + (insight.savings || 0), 0);
   };
+
+  mostExpensiveLabel() {
+    const sub = this.mostExpensive();
+    if (!sub) {
+      return 'нет данных';
+    }
+
+    return `${formatMoney(sub.price, sub.currency)}/${getCycleLabel(sub.cycle)}`;
+  }
 
   async copyImage() {
     const element = document.getElementById('summary-card');

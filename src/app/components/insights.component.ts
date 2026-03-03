@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InsightService } from '../services/insight.service';
 import { MatIconModule } from '@angular/material/icon';
+import { formatMoney } from '../utils/formatters';
 
 @Component({
   selector: 'app-insights',
@@ -10,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     <div class="p-6 max-w-5xl mx-auto space-y-8">
       <header>
-        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Insights & Лайфхаки</h1>
+        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Инсайты и советы</h1>
         <p class="text-gray-500 mt-1">Умные советы по оптимизации твоих расходов</p>
       </header>
 
@@ -18,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg flex items-center justify-between">
           <div>
             <h2 class="text-emerald-50 text-sm font-medium uppercase tracking-wider mb-1">Потенциальная экономия</h2>
-            <div class="text-3xl md:text-4xl font-bold">До \${{ insightService.totalPotentialSavings() | number:'1.0-0' }}/год</div>
+            <div class="text-3xl md:text-4xl font-bold">До {{ formatMoney(insightService.totalPotentialSavings()) }} в год</div>
           </div>
           <div class="w-16 h-16 bg-white/20 rounded-full hidden md:flex items-center justify-center backdrop-blur-sm">
             <mat-icon class="text-4xl w-10 h-10 text-white">savings</mat-icon>
@@ -53,7 +54,7 @@ import { MatIconModule } from '@angular/material/icon';
               @if (insight.savings) {
                 <div class="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-white/60 text-gray-800 border border-black/5">
                   <mat-icon class="text-[14px] w-[14px] h-[14px] mr-1 text-emerald-600">savings</mat-icon>
-                  Потенциальная экономия: \${{ insight.savings | number:'1.2-2' }}
+                  Потенциальная экономия: {{ formatMoney(insight.savings) }}
                 </div>
               }
             </div>
@@ -71,6 +72,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class InsightsComponent {
   insightService = inject(InsightService);
+  formatMoney = formatMoney;
 
   getIcon(type: string): string {
     switch (type) {

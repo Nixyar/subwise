@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubscriptionService } from '../services/subscription.service';
 import { Router } from '@angular/router';
 import { Category, Currency, Cycle, Subscription } from '../models/types';
+import { getCurrencyLabel } from '../utils/formatters';
 
 @Component({
   selector: 'app-add-subscription',
@@ -13,7 +14,7 @@ import { Category, Currency, Cycle, Subscription } from '../models/types';
     <div class="p-6 max-w-2xl mx-auto space-y-8">
       <header>
         <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Добавить подписку</h1>
-        <p class="text-gray-500 mt-1">Внеси данные, чтобы мы могли их проанализировать</p>
+        <p class="text-gray-500 mt-1">Заполни данные, чтобы приложение отслеживало списания и расходы</p>
       </header>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-6">
@@ -26,15 +27,15 @@ import { Category, Currency, Cycle, Subscription } from '../models/types';
 
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Цена</label>
-              <input id="price" type="number" step="0.01" formControlName="price" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all" placeholder="9.99">
+              <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Стоимость</label>
+              <input id="price" type="number" step="0.01" formControlName="price" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all" placeholder="599">
             </div>
             <div>
               <label for="currency" class="block text-sm font-medium text-gray-700 mb-1">Валюта</label>
               <select id="currency" formControlName="currency" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="RUB">RUB (₽)</option>
+                <option value="RUB">{{ getCurrencyLabel('RUB') }}</option>
+                <option value="USD">{{ getCurrencyLabel('USD') }}</option>
+                <option value="EUR">{{ getCurrencyLabel('EUR') }}</option>
               </select>
             </div>
           </div>
@@ -68,13 +69,13 @@ import { Category, Currency, Cycle, Subscription } from '../models/types';
           <div class="pt-4 border-t border-gray-100">
             <label for="isTrial" class="flex items-center space-x-3 cursor-pointer">
               <input id="isTrial" type="checkbox" formControlName="isTrial" class="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500">
-              <span class="text-gray-900 font-medium">Это пробный период (Trial)</span>
+              <span class="text-gray-900 font-medium">Это пробный период</span>
             </label>
           </div>
 
           @if (form.get('isTrial')?.value) {
             <div class="pl-8">
-              <label for="trialEndDate" class="block text-sm font-medium text-gray-700 mb-1">Дата окончания Trial</label>
+              <label for="trialEndDate" class="block text-sm font-medium text-gray-700 mb-1">Дата окончания пробного периода</label>
               <input id="trialEndDate" type="date" formControlName="trialEndDate" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all">
             </div>
           }
@@ -102,11 +103,12 @@ export class AddSubscriptionComponent {
   private fb = inject(FormBuilder);
   private subService = inject(SubscriptionService);
   router = inject(Router);
+  getCurrencyLabel = getCurrencyLabel;
 
   form = this.fb.group({
     name: ['', Validators.required],
     price: [null as number | null, [Validators.required, Validators.min(0)]],
-    currency: ['USD' as Currency, Validators.required],
+    currency: ['RUB' as Currency, Validators.required],
     cycle: ['month' as Cycle, Validators.required],
     category: ['streaming' as Category, Validators.required],
     nextBillingDate: ['', Validators.required],
