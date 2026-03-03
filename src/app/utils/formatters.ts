@@ -5,8 +5,8 @@ const locale = 'ru-RU';
 export function formatMoney(amount: number, currency: Currency = 'RUB'): string {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency,
-    maximumFractionDigits: currency === 'RUB' ? 0 : 2,
+    currency: 'RUB',
+    maximumFractionDigits: 0,
   }).format(amount);
 }
 
@@ -38,8 +38,6 @@ export function getCategoryName(category: Category | string): string {
 export function getCurrencyLabel(currency: Currency): string {
   const labels: Record<Currency, string> = {
     RUB: 'Российский рубль (₽)',
-    USD: 'Доллар США ($)',
-    EUR: 'Евро (€)',
   };
 
   return labels[currency];

@@ -1,4 +1,4 @@
-export type Currency = 'USD' | 'EUR' | 'RUB';
+export type Currency = 'RUB';
 export type Cycle = 'month' | 'year';
 export type Category = 'streaming' | 'music' | 'cloud' | 'sport' | 'software' | 'other';
 

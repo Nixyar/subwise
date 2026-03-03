@@ -6,7 +6,8 @@ import { AddSubscriptionComponent } from './components/add-subscription.componen
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'insights', component: InsightsComponent },
+  { path: 'sovety', component: InsightsComponent },
+  { path: 'insights', redirectTo: 'sovety', pathMatch: 'full' },
   { path: 'summary', component: SummaryComponent },
   { path: 'add', component: AddSubscriptionComponent },
   { path: '**', redirectTo: '' }

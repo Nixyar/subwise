@@ -31,12 +31,10 @@ import { getCurrencyLabel } from '../utils/formatters';
               <input id="price" type="number" step="0.01" formControlName="price" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all" placeholder="599">
             </div>
             <div>
-              <label for="currency" class="block text-sm font-medium text-gray-700 mb-1">Валюта</label>
-              <select id="currency" formControlName="currency" class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white">
-                <option value="RUB">{{ getCurrencyLabel('RUB') }}</option>
-                <option value="USD">{{ getCurrencyLabel('USD') }}</option>
-                <option value="EUR">{{ getCurrencyLabel('EUR') }}</option>
-              </select>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Валюта</label>
+              <div class="w-full px-4 py-2 rounded-xl border border-gray-200 bg-gray-50 text-gray-700">
+                {{ getCurrencyLabel('RUB') }}
+              </div>
             </div>
           </div>
 

@@ -43,7 +43,7 @@ import { formatDateRu, formatMoney, getCategoryName, getCycleLabel, getDaysLabel
             <mat-icon class="mr-2">insights</mat-icon>
             <span class="font-medium">Оценка SubWise</span>
           </div>
-          <p class="text-sm text-indigo-900">У тебя {{ subService.subscriptions().length }} активных подписок. Загляни в инсайты.</p>
+          <p class="text-sm text-indigo-900">У тебя {{ subService.subscriptions().length }} активных подписок. Загляни в советы.</p>
         </div>
       </div>
 

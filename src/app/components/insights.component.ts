@@ -11,7 +11,7 @@ import { formatMoney } from '../utils/formatters';
   template: `
     <div class="p-6 max-w-5xl mx-auto space-y-8">
       <header>
-        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Инсайты и советы</h1>
+        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Советы</h1>
         <p class="text-gray-500 mt-1">Умные советы по оптимизации твоих расходов</p>
       </header>
 
