@@ -1,14 +1,28 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard.component';
-import { InsightsComponent } from './components/insights.component';
-import { SummaryComponent } from './components/summary.component';
-import { AddSubscriptionComponent } from './components/add-subscription.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'sovety', component: InsightsComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+  },
+  {
+    path: 'sovety',
+    loadComponent: () =>
+      import('./features/insights/insights.component').then((m) => m.InsightsComponent),
+  },
   { path: 'insights', redirectTo: 'sovety', pathMatch: 'full' },
-  { path: 'summary', component: SummaryComponent },
-  { path: 'add', component: AddSubscriptionComponent },
+  {
+    path: 'summary',
+    loadComponent: () =>
+      import('./features/summary/summary.component').then((m) => m.SummaryComponent),
+  },
+  {
+    path: 'add',
+    loadComponent: () =>
+      import('./features/subscriptions/add-subscription.component').then(
+        (m) => m.AddSubscriptionComponent,
+      ),
+  },
   { path: '**', redirectTo: '' }
 ];

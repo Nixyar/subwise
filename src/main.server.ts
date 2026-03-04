@@ -4,12 +4,12 @@ import {
   BootstrapContext,
   bootstrapApplication,
 } from '@angular/platform-browser';
-import {App} from './app/app';
+import {AppShellComponent} from './app/core/layout/app-shell.component';
 import {config} from './app/app.config.server';
 
 registerLocaleData(localeRu);
 
 const bootstrap = (context: BootstrapContext) =>
-  bootstrapApplication(App, config, context);
+  bootstrapApplication(AppShellComponent, config, context);
 
 export default bootstrap;

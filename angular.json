@@ -5,7 +5,12 @@
     "packageManager": "npm",
     "schematicCollections": [
       "angular-eslint"
-    ]
+    ],
+    "schematics": {
+      "@schematics/angular:component": {
+        "style": "scss"
+      }
+    }
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -28,7 +33,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",

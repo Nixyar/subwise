@@ -1,14 +1,7 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { SubscriptionService } from './subscription.service';
-import { annualCost, formatDateRu, formatMoney, getDaysLabel, getCycleLabel } from '../utils/formatters';
-
-export interface Insight {
-  id: string;
-  type: 'warning' | 'suggestion' | 'info' | 'trial';
-  title: string;
-  description: string;
-  savings?: number;
-}
+import { annualCost, formatDateRu, formatMoney, getDaysLabel, getCycleLabel } from '../../core/utils/formatters';
+import { Insight } from './insight.model';
+import { SubscriptionService } from '../subscriptions/subscription.service';
 
 @Injectable({ providedIn: 'root' })
 export class InsightService {

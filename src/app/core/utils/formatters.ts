@@ -1,4 +1,4 @@
-import {Category, Currency, Cycle, Subscription} from '../models/types';
+import {Category, Currency, Cycle, Subscription} from '../../features/subscriptions/subscription.model';
 
 const locale = 'ru-RU';
 

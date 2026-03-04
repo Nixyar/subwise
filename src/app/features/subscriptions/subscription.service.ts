@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Subscription } from '../models/types';
+import { Subscription } from './subscription.model';
 
 @Injectable({ providedIn: 'root' })
 export class SubscriptionService {
