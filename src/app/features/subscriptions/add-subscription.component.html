@@ -1,129 +1,86 @@
-<div class="p-6 max-w-2xl mx-auto space-y-8">
-  <header>
-    <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Добавить подписку</h1>
-    <p class="text-gray-500 mt-1">Заполни данные, чтобы приложение отслеживало списания и расходы</p>
+<div class="subscription-page">
+  <header class="page-header">
+    <h1 class="page-title">Добавить подписку</h1>
+    <p class="page-subtitle">Заполни данные, чтобы приложение отслеживало списания и расходы</p>
   </header>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-6">
-    <div class="space-y-4">
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Название сервиса</label>
-        <input
-          id="name"
-          type="text"
-          formControlName="name"
-          class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-          placeholder="Netflix, Spotify..."
-        >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="subscription-form">
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="form-field form-field--full">
+        <mat-label>Название сервиса</mat-label>
+        <input matInput id="name" type="text" formControlName="name" placeholder="Netflix, Spotify...">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Стоимость</mat-label>
+        <input matInput id="price" type="number" step="0.01" formControlName="price" placeholder="599">
+      </mat-form-field>
+
+      <div class="currency-card">
+        <span class="currency-card__label">Валюта</span>
+        <span class="currency-card__value">{{ getCurrencyLabel('RUB') }}</span>
       </div>
 
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Стоимость</label>
-          <input
-            id="price"
-            type="number"
-            step="0.01"
-            formControlName="price"
-            class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-            placeholder="599"
-          >
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Валюта</label>
-          <div class="w-full px-4 py-2 rounded-xl border border-gray-200 bg-gray-50 text-gray-700">
-            {{ getCurrencyLabel('RUB') }}
-          </div>
-        </div>
-      </div>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Цикл оплаты</mat-label>
+        <mat-select id="cycle" formControlName="cycle">
+          <mat-option value="month">В месяц</mat-option>
+          <mat-option value="year">В год</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="cycle" class="block text-sm font-medium text-gray-700 mb-1">Цикл оплаты</label>
-          <select
-            id="cycle"
-            formControlName="cycle"
-            class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white"
-          >
-            <option value="month">В месяц</option>
-            <option value="year">В год</option>
-          </select>
-        </div>
-        <div>
-          <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Категория</label>
-          <select
-            id="category"
-            formControlName="category"
-            class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white"
-          >
-            <option value="streaming">Стриминг</option>
-            <option value="music">Музыка</option>
-            <option value="cloud">Облако</option>
-            <option value="sport">Спорт</option>
-            <option value="software">Софт</option>
-            <option value="other">Другое</option>
-          </select>
-        </div>
-      </div>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Категория</mat-label>
+        <mat-select id="category" formControlName="category">
+          <mat-option value="streaming">Стриминг</mat-option>
+          <mat-option value="music">Музыка</mat-option>
+          <mat-option value="cloud">Облако</mat-option>
+          <mat-option value="sport">Спорт</mat-option>
+          <mat-option value="software">Софт</mat-option>
+          <mat-option value="other">Другое</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <div>
-        <label for="nextBillingDate" class="block text-sm font-medium text-gray-700 mb-1">Дата следующего списания</label>
-        <input
-          id="nextBillingDate"
-          type="date"
-          formControlName="nextBillingDate"
-          class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-        >
-      </div>
+      <mat-form-field appearance="outline" class="form-field form-field--full">
+        <mat-label>Дата следующего списания</mat-label>
+        <input matInput id="nextBillingDate" type="date" formControlName="nextBillingDate">
+      </mat-form-field>
 
-      <div class="pt-4 border-t border-gray-100">
-        <label for="isTrial" class="flex items-center space-x-3 cursor-pointer">
-          <input
-            id="isTrial"
-            type="checkbox"
-            formControlName="isTrial"
-            class="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
-          >
-          <span class="text-gray-900 font-medium">Это пробный период</span>
-        </label>
+      <div class="trial-block form-field--full">
+        <mat-checkbox id="isTrial" formControlName="isTrial" class="trial-checkbox">
+          Это пробный период
+        </mat-checkbox>
       </div>
 
       @if (form.get('isTrial')?.value) {
-        <div class="pl-8">
-          <label for="trialEndDate" class="block text-sm font-medium text-gray-700 mb-1">Дата окончания пробного периода</label>
-          <input
-            id="trialEndDate"
-            type="date"
-            formControlName="trialEndDate"
-            class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-          >
-        </div>
+        <mat-form-field appearance="outline" class="form-field form-field--full form-field--nested">
+          <mat-label>Дата окончания пробного периода</mat-label>
+          <input matInput id="trialEndDate" type="date" formControlName="trialEndDate">
+        </mat-form-field>
       }
 
-      <div>
-        <label for="lastUsedDate" class="block text-sm font-medium text-gray-700 mb-1">Последний раз использовался (опционально)</label>
-        <input
-          id="lastUsedDate"
-          type="date"
-          formControlName="lastUsedDate"
-          class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-        >
-        <p class="text-xs text-gray-500 mt-1">Поможет нам найти забытые подписки</p>
-      </div>
+      <mat-form-field appearance="outline" class="form-field form-field--full">
+        <mat-label>Последний раз использовался (опционально)</mat-label>
+        <input matInput id="lastUsedDate" type="date" formControlName="lastUsedDate">
+        <mat-hint>Поможет нам найти забытые подписки</mat-hint>
+      </mat-form-field>
     </div>
 
-    <div class="pt-6 flex space-x-4">
+    <div class="form-actions">
       <button
+        matButton
         type="button"
         (click)="router.navigate(['/'])"
-        class="px-6 py-2.5 rounded-xl font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+        class="action-button action-button--secondary"
       >
         Отмена
       </button>
       <button
+        mat-flat-button
+        color="primary"
         type="submit"
         [disabled]="form.invalid"
-        class="flex-1 px-6 py-2.5 rounded-xl font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        class="action-button action-button--primary"
       >
         Добавить подписку
       </button>

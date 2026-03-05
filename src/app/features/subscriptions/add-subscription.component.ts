@@ -1,6 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { SubscriptionService } from './subscription.service';
 import { Router } from '@angular/router';
 import { Category, Currency, Cycle, Subscription } from './subscription.model';
@@ -9,7 +14,15 @@ import { getCurrencyLabel } from '../../core/utils/formatters';
 @Component({
   selector: 'app-add-subscription',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   templateUrl: './add-subscription.component.html',
   styleUrl: './add-subscription.component.scss',
 })

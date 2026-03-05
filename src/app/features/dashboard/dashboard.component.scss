@@ -1,3 +1,260 @@
 :host {
   display: block;
 }
+
+.dashboard-page {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  color: #111827;
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  margin-top: 0.25rem;
+  color: #6b7280;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card,
+.category-card {
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.stat-card__label,
+.category-card__label {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat-card__value {
+  margin-top: 0.5rem;
+  color: #111827;
+  font-size: 2.25rem;
+  font-weight: 300;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.category-card__chart {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  box-shadow: inset 0 2px 8px rgba(17, 24, 39, 0.08);
+}
+
+.category-card__chart-inner {
+  position: absolute;
+  inset: 0.5rem;
+  background: #fff;
+  border-radius: 9999px;
+}
+
+.category-card__content {
+  flex: 1;
+}
+
+.category-card__value {
+  margin-top: 0.25rem;
+  color: #111827;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.category-card__hint {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.score-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 1rem;
+  background: #eef2ff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.score-card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: #4338ca;
+}
+
+.score-card__icon {
+  margin-right: 0.5rem;
+}
+
+.score-card__title {
+  font-weight: 500;
+}
+
+.score-card__text {
+  color: #312e81;
+  font-size: 0.875rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.subscriptions-card {
+  overflow: hidden;
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.subscriptions-list > * + * {
+  border-top: 1px solid #f3f4f6;
+}
+
+.subscription-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.subscription-row:hover {
+  background: #f9fafb;
+}
+
+.subscription-row__main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.subscription-row__icon-wrap {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.subscription-row__title {
+  display: flex;
+  align-items: center;
+  color: #111827;
+  font-weight: 500;
+}
+
+.subscription-row__badge {
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subscription-row__meta {
+  display: flex;
+  align-items: center;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+}
+
+.subscription-row__meta--warning {
+  color: #ea580c;
+  font-weight: 500;
+}
+
+.subscription-row__meta--default {
+  color: #6b7280;
+}
+
+.subscription-row__meta-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 0.25rem;
+  font-size: 14px;
+}
+
+.subscription-row__pricing {
+  text-align: right;
+}
+
+.subscription-row__price {
+  color: #111827;
+  font-weight: 500;
+}
+
+.subscription-row__cycle {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.subscriptions-empty {
+  padding: 2rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

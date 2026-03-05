@@ -1,3 +1,135 @@
 :host {
   display: block;
 }
+
+.subscription-page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  color: #111827;
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  margin-top: 0.25rem;
+  color: #6b7280;
+}
+
+.subscription-form {
+  padding: 1.5rem;
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.currency-card {
+  padding: 0.8125rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #f9fafb;
+  color: #374151;
+}
+
+.currency-card__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.currency-card__value {
+  display: block;
+  font-size: 0.875rem;
+}
+
+.trial-block {
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.form-field--nested {
+  padding-left: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.action-button {
+  min-height: 42px;
+  padding: 0 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+}
+
+.action-button--secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.action-button--primary {
+  flex: 1;
+}
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  margin-top: 0.25rem;
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 1rem;
+  --mdc-outlined-text-field-container-color: #fff;
+  --mdc-outlined-text-field-outline-color: #e5e7eb;
+  --mdc-outlined-text-field-hover-outline-color: #cbd5e1;
+  --mdc-outlined-text-field-focus-outline-color: #6366f1;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+:host ::ng-deep .mat-mdc-checkbox label {
+  color: #111827;
+  font-weight: 500;
+}
+
+:host ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-field--full {
+    grid-column: span 2;
+  }
+
+  .form-field--nested {
+    padding-left: 2rem;
+  }
+}

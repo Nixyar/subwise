@@ -1,61 +1,61 @@
-<div class="p-6 max-w-5xl mx-auto space-y-8">
-  <header>
-    <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Советы</h1>
-    <p class="text-gray-500 mt-1">Умные советы по оптимизации твоих расходов</p>
+<div class="insights-page">
+  <header class="page-header">
+    <h1 class="page-title">Советы</h1>
+    <p class="page-subtitle">Умные советы по оптимизации твоих расходов</p>
   </header>
 
   @if (insightService.totalPotentialSavings() > 0) {
-    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg flex items-center justify-between">
+    <div class="savings-banner">
       <div>
-        <h2 class="text-emerald-50 text-sm font-medium uppercase tracking-wider mb-1">Потенциальная экономия</h2>
-        <div class="text-3xl md:text-4xl font-bold">До {{ formatMoney(insightService.totalPotentialSavings()) }} в год</div>
+        <h2 class="savings-banner__label">Потенциальная экономия</h2>
+        <div class="savings-banner__value">До {{ formatMoney(insightService.totalPotentialSavings()) }} в год</div>
       </div>
-      <div class="w-16 h-16 bg-white/20 rounded-full hidden md:flex items-center justify-center backdrop-blur-sm">
-        <mat-icon class="text-4xl w-10 h-10 text-white">savings</mat-icon>
+      <div class="savings-banner__icon-wrap">
+        <mat-icon class="savings-banner__icon">savings</mat-icon>
       </div>
     </div>
   }
 
-  <div class="grid gap-4">
+  <div class="insights-list">
     @for (insight of insightService.insights(); track insight.id) {
       <div
-        class="rounded-2xl p-5 shadow-sm border flex items-start space-x-4"
+        class="insight-card"
         [ngClass]="{
-          'bg-red-50 border-red-100': insight.type === 'warning',
-          'bg-emerald-50 border-emerald-100': insight.type === 'suggestion',
-          'bg-blue-50 border-blue-100': insight.type === 'info',
-          'bg-amber-50 border-amber-100': insight.type === 'trial'
+          'insight-card--warning': insight.type === 'warning',
+          'insight-card--suggestion': insight.type === 'suggestion',
+          'insight-card--info': insight.type === 'info',
+          'insight-card--trial': insight.type === 'trial'
         }"
       >
         <div
-          class="mt-1"
+          class="insight-card__icon-wrap"
           [ngClass]="{
-            'text-red-500': insight.type === 'warning',
-            'text-emerald-500': insight.type === 'suggestion',
-            'text-blue-500': insight.type === 'info',
-            'text-amber-500': insight.type === 'trial'
+            'insight-card__icon-wrap--warning': insight.type === 'warning',
+            'insight-card__icon-wrap--suggestion': insight.type === 'suggestion',
+            'insight-card__icon-wrap--info': insight.type === 'info',
+            'insight-card__icon-wrap--trial': insight.type === 'trial'
           }"
         >
           <mat-icon>{{ getIcon(insight.type) }}</mat-icon>
         </div>
 
-        <div class="flex-1">
-          <h3 class="font-semibold text-gray-900">{{ insight.title }}</h3>
-          <p class="text-gray-700 mt-1 text-sm leading-relaxed">{{ insight.description }}</p>
+        <div class="insight-card__content">
+          <h3 class="insight-card__title">{{ insight.title }}</h3>
+          <p class="insight-card__description">{{ insight.description }}</p>
 
           @if (insight.savings) {
-            <div class="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-white/60 text-gray-800 border border-black/5">
-              <mat-icon class="text-[14px] w-[14px] h-[14px] mr-1 text-emerald-600">savings</mat-icon>
+            <div class="insight-card__savings">
+              <mat-icon class="insight-card__savings-icon">savings</mat-icon>
               Потенциальная экономия: {{ formatMoney(insight.savings) }}
             </div>
           }
         </div>
       </div>
     } @empty {
-      <div class="text-center p-12 bg-gray-50 rounded-2xl border border-gray-100">
-        <mat-icon class="text-gray-400 text-4xl mb-2">check_circle</mat-icon>
-        <h3 class="text-lg font-medium text-gray-900">Всё идеально!</h3>
-        <p class="text-gray-500 mt-1">Мы не нашли способов оптимизировать твои текущие подписки.</p>
+      <div class="insights-empty">
+        <mat-icon class="insights-empty__icon">check_circle</mat-icon>
+        <h3 class="insights-empty__title">Всё идеально!</h3>
+        <p class="insights-empty__text">Мы не нашли способов оптимизировать твои текущие подписки.</p>
       </div>
     }
   </div>

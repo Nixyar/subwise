@@ -1,57 +1,57 @@
-<div class="p-6 max-w-5xl mx-auto space-y-8 flex flex-col items-center">
-  <header class="text-center w-full">
-    <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Мой итог</h1>
-    <p class="text-gray-500 mt-1">Поделись своими результатами и оцени траты на подписки</p>
+<div class="summary-page">
+  <header class="summary-header">
+    <h1 class="summary-header__title">Мой итог</h1>
+    <p class="summary-header__subtitle">Поделись своими результатами и оцени траты на подписки</p>
   </header>
 
-  <div id="summary-card" class="bg-gradient-to-br from-indigo-600 to-violet-800 rounded-3xl p-8 text-white w-full max-w-md shadow-2xl relative overflow-hidden">
-    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
-    <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+  <div id="summary-card" class="summary-card">
+    <div class="summary-card__glow summary-card__glow--top"></div>
+    <div class="summary-card__glow summary-card__glow--bottom"></div>
 
-    <div class="relative z-10 flex flex-col items-center text-center space-y-6">
-      <div class="flex items-center justify-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full">
-        <mat-icon class="text-white text-sm w-4 h-4">auto_awesome</mat-icon>
-        <span class="font-semibold tracking-wider text-sm">SubWise</span>
+    <div class="summary-card__content">
+      <div class="summary-card__badge">
+        <mat-icon class="summary-card__badge-icon">auto_awesome</mat-icon>
+        <span class="summary-card__badge-label">SubWise</span>
       </div>
 
       <div>
-        <p class="text-indigo-100 text-sm uppercase tracking-widest font-medium mb-1">Я трачу на подписки</p>
-        <h2 class="text-6xl font-bold tracking-tighter">
-          {{ formatMoney(subService.totalMonthly()) }}<span class="text-2xl font-normal text-indigo-200">/мес.</span>
+        <p class="summary-card__label">Я трачу на подписки</p>
+        <h2 class="summary-card__value">
+          {{ formatMoney(subService.totalMonthly()) }}<span class="summary-card__value-unit">/мес.</span>
         </h2>
       </div>
 
-      <div class="w-full h-px bg-white/20"></div>
+      <div class="summary-card__divider"></div>
 
-      <div class="w-full space-y-3 text-left">
-        <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
-          <span class="text-indigo-100 text-sm">Всего подписок:</span>
-          <span class="font-medium">{{ subService.subscriptions().length }}</span>
+      <div class="summary-card__stats">
+        <div class="summary-card__stat">
+          <span class="summary-card__stat-label">Всего подписок:</span>
+          <span class="summary-card__stat-value">{{ subService.subscriptions().length }}</span>
         </div>
-        <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
-          <span class="text-indigo-100 text-sm">Топ категория:</span>
-          <span class="font-medium">{{ getCategoryName(subService.topCategory()) }}</span>
+        <div class="summary-card__stat">
+          <span class="summary-card__stat-label">Топ категория:</span>
+          <span class="summary-card__stat-value">{{ getCategoryName(subService.topCategory()) }}</span>
         </div>
-        <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
-          <span class="text-indigo-100 text-sm">Самая дорогая:</span>
-          <span class="font-medium">{{ mostExpensive()?.name || 'Нет' }} ({{ mostExpensiveLabel() }})</span>
+        <div class="summary-card__stat">
+          <span class="summary-card__stat-label">Самая дорогая:</span>
+          <span class="summary-card__stat-value">{{ mostExpensive()?.name || 'Нет' }} ({{ mostExpensiveLabel() }})</span>
         </div>
-        <div class="flex justify-between items-center bg-black/10 rounded-xl p-3">
-          <span class="text-indigo-100 text-sm">Потенциальная экономия:</span>
-          <span class="font-bold text-emerald-300">{{ formatMoney(potentialSavings()) }}/год</span>
+        <div class="summary-card__stat">
+          <span class="summary-card__stat-label">Потенциальная экономия:</span>
+          <span class="summary-card__stat-value summary-card__stat-value--accent">{{ formatMoney(potentialSavings()) }}/год</span>
         </div>
       </div>
 
-      <p class="text-xs text-indigo-200 opacity-80 pt-4">Проверь свои подписки в SubWise</p>
+      <p class="summary-card__footnote">Проверь свои подписки в SubWise</p>
     </div>
   </div>
 
-  <div class="flex space-x-4 mt-8">
+  <div class="summary-actions">
     <button
       (click)="copyImage()"
-      class="flex items-center px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-gray-900/20"
+      class="copy-button"
     >
-      <mat-icon class="mr-2">content_copy</mat-icon>
+      <mat-icon class="copy-button__icon">content_copy</mat-icon>
       {{ isCopied() ? 'Скопировано!' : 'Скопировать картинку' }}
     </button>
   </div>
