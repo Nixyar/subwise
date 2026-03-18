@@ -5,6 +5,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { languages } from '../i18n/languages';
 import { LocaleService } from '../i18n/locale.service';
 import { translations } from '../i18n/translations';
+import { SubscriptionDialogService } from '../../features/subscriptions/subscription-dialog.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,6 +16,7 @@ import { translations } from '../i18n/translations';
 })
 export class AppShellComponent {
   readonly localeService = inject(LocaleService);
+  readonly subscriptionDialogService = inject(SubscriptionDialogService);
   readonly locale = this.localeService.locale;
   readonly copy = computed(() => translations[this.locale()].layout);
   readonly languages = languages.filter((language) => language.enabled);
@@ -24,5 +26,9 @@ export class AppShellComponent {
 
   setLocale(locale: 'ru' | 'en') {
     this.localeService.setLocale(locale);
+  }
+
+  openAddSubscriptionDialog() {
+    this.subscriptionDialogService.openAddDialog();
   }
 }

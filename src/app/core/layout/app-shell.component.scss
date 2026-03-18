@@ -33,6 +33,8 @@
   align-items: center;
   gap: 0.5rem;
   min-width: 0;
+  color: inherit;
+  text-decoration: none;
 }
 
 .brand__icon {
@@ -117,8 +119,11 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-.language-picker__code {
-  letter-spacing: 0.08em;
+.language-picker__label {
+  max-width: 5.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .language-picker__icon {
@@ -132,12 +137,14 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+  border: 0;
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
   background: #111827;
   color: #fff;
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
@@ -197,10 +204,12 @@
   width: 3.5rem;
   align-items: center;
   justify-content: center;
+  border: 0;
   border-radius: 9999px;
   background: #4f46e5;
   color: #fff;
   box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -237,7 +246,7 @@
 }
 
 :host ::ng-deep .language-menu {
-  min-width: 11.5rem;
+  min-width: 10rem;
 }
 
 :host ::ng-deep .language-menu__item {
@@ -248,23 +257,9 @@
   width: 100%;
 }
 
-.language-menu__row {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
 .language-menu__native {
   color: #111827;
   font-weight: 500;
   line-height: 1.25;
-}
-
-.language-menu__meta {
-  flex-shrink: 0;
-  color: #6b7280;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  white-space: nowrap;
 }

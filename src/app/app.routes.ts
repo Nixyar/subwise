@@ -7,22 +7,17 @@ export const routes: Routes = [
       import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
   },
   {
-    path: 'sovety',
+    path: 'insight',
     loadComponent: () =>
       import('./features/insights/insights.component').then((m) => m.InsightsComponent),
   },
-  { path: 'insights', redirectTo: 'sovety', pathMatch: 'full' },
+  { path: 'sovety', redirectTo: 'insight', pathMatch: 'full' },
+  { path: 'insights', redirectTo: 'insight', pathMatch: 'full' },
   {
     path: 'summary',
     loadComponent: () =>
       import('./features/summary/summary.component').then((m) => m.SummaryComponent),
   },
-  {
-    path: 'add',
-    loadComponent: () =>
-      import('./features/subscriptions/add-subscription.component').then(
-        (m) => m.AddSubscriptionComponent,
-      ),
-  },
+  { path: 'add', redirectTo: '', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];
