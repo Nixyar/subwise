@@ -2,22 +2,22 @@ import { AppLocale } from './locale.model';
 
 export type LanguageOption = {
   code: AppLocale;
-  label: string;
   nativeLabel: string;
+  triggerLabel: string;
   enabled: boolean;
 };
 
 export const languages: LanguageOption[] = [
   {
     code: 'ru',
-    label: 'Russian',
     nativeLabel: 'Русский',
+    triggerLabel: 'РУ',
     enabled: true,
   },
   {
     code: 'en',
-    label: 'English',
     nativeLabel: 'English',
+    triggerLabel: 'ENG',
     enabled: true,
   },
 ];

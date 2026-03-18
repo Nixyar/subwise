@@ -142,8 +142,17 @@ export class AddSubscriptionComponent {
   }
 
   private getDefaultCurrency(): Currency {
+    const appLocale = this.localeService.locale();
+    if (appLocale === 'ru') {
+      return 'RUB';
+    }
+
+    if (appLocale === 'en') {
+      return 'USD';
+    }
+
     if (typeof navigator === 'undefined') {
-      return this.localeService.locale() === 'en' ? 'USD' : 'RUB';
+      return 'EUR';
     }
 
     const language = navigator.language.toLowerCase();

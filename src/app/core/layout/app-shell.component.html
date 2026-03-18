@@ -7,17 +7,6 @@
         </div>
         <span class="brand__title">SubWise</span>
       </a>
-
-      <div class="language-picker language-picker--desktop">
-        <button
-          type="button"
-          class="language-picker__trigger"
-          [matMenuTriggerFor]="languageMenu"
-        >
-          <span class="language-picker__label">{{ activeLanguage().nativeLabel }}</span>
-          <mat-icon class="language-picker__icon">expand_more</mat-icon>
-        </button>
-      </div>
     </div>
 
     <nav class="sidebar__nav">
@@ -48,6 +37,21 @@
       </a>
     </nav>
 
+    <div class="sidebar__controls">
+      <div class="sidebar__control-card">
+        <div class="language-picker language-picker--desktop">
+          <button
+            type="button"
+            class="language-picker__trigger"
+            [matMenuTriggerFor]="languageMenu"
+          >
+            <span class="language-picker__label">{{ activeLanguage().triggerLabel }}</span>
+            <mat-icon class="language-picker__icon">expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="sidebar__cta">
       <button
         type="button"
@@ -61,15 +65,19 @@
   </aside>
 
   <main class="content">
-    <div class="language-picker language-picker--mobile">
-      <button
-        type="button"
-        class="language-picker__trigger"
-        [matMenuTriggerFor]="languageMenu"
-      >
-        <span class="language-picker__label">{{ activeLanguage().nativeLabel }}</span>
-        <mat-icon class="language-picker__icon">expand_more</mat-icon>
-      </button>
+    <div class="sidebar__controls sidebar__controls--mobile">
+      <div class="sidebar__control-card">
+        <div class="language-picker language-picker--mobile">
+          <button
+            type="button"
+            class="language-picker__trigger"
+            [matMenuTriggerFor]="languageMenu"
+          >
+            <span class="language-picker__label">{{ activeLanguage().triggerLabel }}</span>
+            <mat-icon class="language-picker__icon">expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
     <router-outlet></router-outlet>
   </main>
