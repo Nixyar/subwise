@@ -75,14 +75,28 @@
               </div>
             </div>
             <div class="subscription-row__pricing">
-              <div class="subscription-row__price">{{ formatMoney(sub.price, sub.currency) }}</div>
-              <div class="subscription-row__cycle">/ {{ getCycleLabel(sub.cycle) }}</div>
+              <div class="subscription-row__amount">
+                <div class="subscription-row__price">{{ formatMoney(sub.price, sub.currency) }}</div>
+                <div class="subscription-row__cycle">/ {{ getCycleLabel(sub.cycle) }}</div>
+              </div>
+              <button
+                mat-icon-button
+                type="button"
+                class="subscription-row__delete"
+                [attr.aria-label]="copy().deleteAction"
+                (click)="deleteSubscription(sub.id, sub.name)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
             </div>
           </div>
         } @empty {
           <div class="subscriptions-empty">
             <p class="subscriptions-empty__text">{{ copy().noSubscriptions }}</p>
-            <a routerLink="/add" class="subscriptions-empty__action">{{ copy().addSubscriptionAction }}</a>
+            <button type="button" class="subscriptions-empty__action" (click)="openAddSubscriptionDialog()">
+              <mat-icon class="subscriptions-empty__action-icon">add</mat-icon>
+              {{ copy().addSubscriptionAction }}
+            </button>
           </div>
         }
       </div>

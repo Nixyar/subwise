@@ -6,8 +6,6 @@ export type AppShellIntl = {
   summary: string;
   summaryShort: string;
   add: string;
-  languageRu: string;
-  languageEn: string;
 };
 
 export type DashboardIntl = {
@@ -27,6 +25,10 @@ export type DashboardIntl = {
   billingDate: string;
   noSubscriptions: string;
   addSubscriptionAction: string;
+  deleteAction: string;
+  deleteConfirmTitle: string;
+  deleteConfirmDescription: string;
+  deleteConfirmSubmit: string;
 };
 
 export type InsightsIntl = {
