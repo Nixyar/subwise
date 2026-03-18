@@ -1,10 +1,23 @@
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand">
-      <div class="brand__icon">
-        <mat-icon class="brand__icon-symbol">auto_awesome</mat-icon>
+      <div class="brand__identity">
+        <div class="brand__icon">
+          <mat-icon class="brand__icon-symbol">auto_awesome</mat-icon>
+        </div>
+        <span class="brand__title">SubWise</span>
       </div>
-      <span class="brand__title">SubWise</span>
+
+      <div class="language-picker language-picker--desktop">
+        <button
+          type="button"
+          class="language-picker__trigger"
+          [matMenuTriggerFor]="languageMenu"
+        >
+          <span class="language-picker__code">{{ activeLanguage().shortLabel }}</span>
+          <mat-icon class="language-picker__icon">expand_more</mat-icon>
+        </button>
+      </div>
     </div>
 
     <nav class="sidebar__nav">
@@ -15,7 +28,7 @@
         class="nav-link"
       >
         <mat-icon class="nav-link__icon">dashboard</mat-icon>
-        Дашборд
+        {{ copy().dashboard }}
       </a>
       <a
         routerLink="/sovety"
@@ -23,7 +36,7 @@
         class="nav-link"
       >
         <mat-icon class="nav-link__icon">lightbulb</mat-icon>
-        Советы
+        {{ copy().insights }}
       </a>
       <a
         routerLink="/summary"
@@ -31,7 +44,7 @@
         class="nav-link"
       >
         <mat-icon class="nav-link__icon">share</mat-icon>
-        Мой итог
+        {{ copy().summary }}
       </a>
     </nav>
 
@@ -41,12 +54,22 @@
         class="primary-link"
       >
         <mat-icon class="primary-link__icon">add</mat-icon>
-        Добавить
+        {{ copy().add }}
       </a>
     </div>
   </aside>
 
   <main class="content">
+    <div class="language-picker language-picker--mobile">
+      <button
+        type="button"
+        class="language-picker__trigger"
+        [matMenuTriggerFor]="languageMenu"
+      >
+        <span class="language-picker__code">{{ activeLanguage().shortLabel }}</span>
+        <mat-icon class="language-picker__icon">expand_more</mat-icon>
+      </button>
+    </div>
     <router-outlet></router-outlet>
   </main>
 
@@ -58,7 +81,7 @@
       class="bottom-nav__link"
     >
       <mat-icon>dashboard</mat-icon>
-      <span class="bottom-nav__label">Дашборд</span>
+      <span class="bottom-nav__label">{{ copy().dashboard }}</span>
     </a>
     <a
       routerLink="/sovety"
@@ -66,7 +89,7 @@
       class="bottom-nav__link"
     >
       <mat-icon>lightbulb</mat-icon>
-      <span class="bottom-nav__label">Советы</span>
+      <span class="bottom-nav__label">{{ copy().insights }}</span>
     </a>
     <div class="bottom-nav__cta-wrap">
       <a
@@ -82,7 +105,18 @@
         class="bottom-nav__link"
       >
         <mat-icon>share</mat-icon>
-      <span class="bottom-nav__label">Итог</span>
+      <span class="bottom-nav__label">{{ copy().summaryShort }}</span>
     </a>
   </nav>
+
+  <mat-menu #languageMenu="matMenu" class="language-menu">
+    @for (language of languages; track language.code) {
+      <button mat-menu-item (click)="setLocale(language.code)" class="language-menu__item">
+        <span class="language-menu__row">
+          <span class="language-menu__native">{{ language.nativeLabel }}</span>
+          <span class="language-menu__meta">{{ language.shortLabel }}</span>
+        </span>
+      </button>
+    }
+  </mat-menu>
 </div>
