@@ -8,12 +8,12 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="subscription-form">
     <div class="form-grid">
-      <mat-form-field appearance="outline" class="form-field form-field--full">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">
         <mat-label>{{ copy().name }}</mat-label>
         <input matInput id="name" type="text" formControlName="name" [placeholder]="copy().namePlaceholder">
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
         <mat-label>{{ copy().price }}</mat-label>
         <input
           matInput
@@ -29,7 +29,7 @@
         >
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
         <mat-label>{{ copy().currency }}</mat-label>
         <mat-select id="currency" formControlName="currency">
           @for (currency of currencies; track currency) {
@@ -38,7 +38,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
         <mat-label>{{ copy().cycle }}</mat-label>
         <mat-select id="cycle" formControlName="cycle">
           <mat-option value="month">{{ getCycleLabel('month') }}</mat-option>
@@ -46,7 +46,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
         <mat-label>{{ copy().category }}</mat-label>
         <mat-select id="category" formControlName="category">
           <mat-option value="streaming">{{ getCategoryLabel('streaming') }}</mat-option>
@@ -58,7 +58,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field form-field--full">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">
         <mat-label>{{ copy().nextBillingDate }}</mat-label>
         <input
           matInput
@@ -66,10 +66,16 @@
           [matDatepicker]="nextBillingDatePicker"
           [min]="today"
           [placeholder]="russianDatePlaceholder"
+          inputmode="numeric"
+          maxlength="10"
+          autocomplete="off"
           formControlName="nextBillingDate"
+          (input)="maskDateInput($event)"
+          (keydown)="preventInvalidDateKeys($event)"
         >
         <mat-datepicker-toggle matIconSuffix [for]="nextBillingDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #nextBillingDatePicker></mat-datepicker>
+        <mat-error>{{ getDateError('nextBillingDate') }}</mat-error>
       </mat-form-field>
 
       <div class="trial-block form-field--full">
@@ -79,7 +85,7 @@
       </div>
 
       @if (form.get('isTrial')?.value) {
-        <mat-form-field appearance="outline" class="form-field form-field--full form-field--nested">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full form-field--nested">
           <mat-label>{{ copy().trialEndDate }}</mat-label>
           <input
             matInput
@@ -87,21 +93,32 @@
             [matDatepicker]="trialEndDatePicker"
             [min]="today"
             [placeholder]="russianDatePlaceholder"
+            inputmode="numeric"
+            maxlength="10"
+            autocomplete="off"
             formControlName="trialEndDate"
+            (input)="maskDateInput($event)"
+            (keydown)="preventInvalidDateKeys($event)"
           >
           <mat-datepicker-toggle matIconSuffix [for]="trialEndDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #trialEndDatePicker></mat-datepicker>
+          <mat-error>{{ getDateError('trialEndDate') }}</mat-error>
         </mat-form-field>
       }
 
-      <mat-form-field appearance="outline" class="form-field form-field--full">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">
         <mat-label>{{ copy().lastUsedDate }}</mat-label>
         <input
           matInput
           id="lastUsedDate"
           [matDatepicker]="lastUsedDatePicker"
           [placeholder]="russianDatePlaceholder"
+          inputmode="numeric"
+          maxlength="10"
+          autocomplete="off"
           formControlName="lastUsedDate"
+          (input)="maskDateInput($event)"
+          (keydown)="preventInvalidDateKeys($event)"
         >
         <mat-datepicker-toggle matIconSuffix [for]="lastUsedDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #lastUsedDatePicker></mat-datepicker>
