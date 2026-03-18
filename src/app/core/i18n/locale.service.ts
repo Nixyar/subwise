@@ -52,7 +52,7 @@ export class LocaleService {
       })
       .filter((value): value is string => Boolean(value));
 
-    return parts.length > 0 ? parts.join(' • ') : '0';
+    return parts.length > 0 ? parts.join(' / ') : '0';
   }
 
   formatDate(date: string | Date): string {

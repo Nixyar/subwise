@@ -37,7 +37,7 @@
 }
 
 .trial-block {
-  padding-top: 1rem;
+  padding-top: 0.25rem;
   border-top: 1px solid #f3f4f6;
 }
 
@@ -68,7 +68,7 @@
 }
 
 :host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
 }
 
 :host ::ng-deep .mdc-text-field--outlined {
@@ -97,6 +97,10 @@
 :host ::ng-deep .mat-mdc-checkbox label {
   color: #111827;
   font-weight: 500;
+}
+
+:host ::ng-deep .mat-datepicker-toggle {
+  color: #4b5563;
 }
 
 :host ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {

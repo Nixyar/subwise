@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Va
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +13,7 @@ import { SubscriptionService } from './subscription.service';
 import { Category, Currency, Cycle, Subscription } from './subscription.model';
 import { LocaleService } from '../../core/i18n/locale.service';
 import { translations } from '../../core/i18n/translations';
+import { SUBSCRIPTION_DATE_FORMATS, SubscriptionDateAdapter } from './subscription-date-adapter';
 
 function startOfDay(value: Date) {
   const result = new Date(value);
@@ -22,15 +23,31 @@ function startOfDay(value: Date) {
 
 function notInPastValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-    if (!value) {
+    const selected = parseDateValue(control.value);
+    if (!selected) {
       return null;
     }
 
-    const selected = startOfDay(new Date(value));
     const today = startOfDay(new Date());
     return selected < today ? { pastDate: true } : null;
   };
+}
+
+function parseDateValue(value: unknown): Date | null {
+  if (!value) {
+    return null;
+  }
+
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return startOfDay(value);
+  }
+
+  if (typeof value === 'string') {
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : startOfDay(parsed);
+  }
+
+  return null;
 }
 
 @Component({
@@ -50,7 +67,11 @@ function notInPastValidator(): ValidatorFn {
   ],
   templateUrl: './add-subscription.component.html',
   styleUrl: './add-subscription.component.scss',
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    { provide: DateAdapter, useClass: SubscriptionDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: SUBSCRIPTION_DATE_FORMATS },
+  ],
 })
 export class AddSubscriptionComponent {
   private fb = inject(FormBuilder);
@@ -139,6 +160,57 @@ export class AddSubscriptionComponent {
     if (['-', '+', 'e', 'E'].includes(event.key)) {
       event.preventDefault();
     }
+  }
+
+  maskDateInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const digits = input.value.replace(/\D/g, '').slice(0, 8);
+    let maskedValue = digits;
+
+    if (digits.length > 2) {
+      maskedValue = `${digits.slice(0, 2)}.${digits.slice(2)}`;
+    }
+
+    if (digits.length > 4) {
+      maskedValue = `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
+    }
+
+    input.value = maskedValue;
+  }
+
+  preventInvalidDateKeys(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End', '.'];
+    if (allowedKeys.includes(event.key) || /^\d$/.test(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  getDateError(controlName: 'nextBillingDate' | 'trialEndDate'): string {
+    const control = this.form.controls[controlName];
+
+    if (!control.touched && !control.dirty) {
+      return '';
+    }
+
+    if (control.hasError('required')) {
+      return this.localeService.locale() === 'ru' ? 'Выбери дату' : 'Pick a date';
+    }
+
+    if (control.hasError('pastDate')) {
+      return this.localeService.locale() === 'ru'
+        ? 'Дата не может быть в прошлом'
+        : 'The date cannot be in the past';
+    }
+
+    if (control.hasError('matDatepickerParse')) {
+      return this.localeService.locale() === 'ru'
+        ? 'Введите дату в формате ДД.ММ.ГГГГ'
+        : 'Use the DD.MM.YYYY format';
+    }
+
+    return '';
   }
 
   private getDefaultCurrency(): Currency {
