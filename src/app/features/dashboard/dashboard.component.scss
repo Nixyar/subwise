@@ -230,6 +230,12 @@
 }
 
 .subscription-row__pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subscription-row__amount {
   text-align: right;
 }
 
@@ -261,6 +267,7 @@
   align-items: center;
   justify-content: center;
   min-height: 2.75rem;
+  border: 0;
   padding: 0 1rem;
   border-radius: 9999px;
   background: #111827;
@@ -268,11 +275,24 @@
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.subscriptions-empty__action-icon {
+  margin-right: 0.375rem;
 }
 
 .subscriptions-empty__action:hover {
   background: #1f2937;
+}
+
+.subscription-row__delete {
+  color: #9ca3af;
+}
+
+.subscription-row__delete:hover {
+  color: #dc2626;
 }
 
 @media (min-width: 768px) {

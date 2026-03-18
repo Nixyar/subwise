@@ -17,4 +17,8 @@ export const dashboardEn: DashboardIntl = {
   billingDate: 'Billing date: {date}',
   noSubscriptions: 'You have not added any subscriptions yet.',
   addSubscriptionAction: 'Add subscription',
+  deleteAction: 'Delete',
+  deleteConfirmTitle: 'Delete subscription?',
+  deleteConfirmDescription: 'This subscription will be removed from the list and cannot be restored.',
+  deleteConfirmSubmit: 'Delete',
 };

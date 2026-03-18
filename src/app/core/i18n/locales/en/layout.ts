@@ -5,7 +5,5 @@ export const layoutEn: AppShellIntl = {
   insights: 'Advice',
   summary: 'My Summary',
   summaryShort: 'Summary',
-  add: 'Add',
-  languageRu: 'RU',
-  languageEn: 'EN',
+  add: 'Add subscription',
 };

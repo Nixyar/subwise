@@ -2,34 +2,28 @@
   display: block;
 }
 
-.subscription-page {
-  max-width: 42rem;
-  margin: 0 auto;
+.subscription-dialog {
   padding: 1.5rem;
 }
 
-.page-header {
-  margin-bottom: 2rem;
+.dialog-header {
+  margin-bottom: 1.5rem;
 }
 
-.page-title {
+.dialog-title {
   color: #111827;
   font-size: 1.875rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.page-subtitle {
+.dialog-subtitle {
   margin-top: 0.25rem;
   color: #6b7280;
 }
 
 .subscription-form {
-  padding: 1.5rem;
-  border: 1px solid #f3f4f6;
-  border-radius: 1rem;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+  padding: 0;
 }
 
 .form-grid {
@@ -88,6 +82,16 @@
 :host ::ng-deep .mat-mdc-form-field-infix {
   padding-top: 11px;
   padding-bottom: 11px;
+}
+
+:host ::ng-deep input[type='number'] {
+  appearance: textfield;
+}
+
+:host ::ng-deep input[type='number']::-webkit-outer-spin-button,
+:host ::ng-deep input[type='number']::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
 }
 
 :host ::ng-deep .mat-mdc-checkbox label {

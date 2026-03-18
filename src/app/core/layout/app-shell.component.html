@@ -1,23 +1,12 @@
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand">
-      <div class="brand__identity">
+      <a routerLink="/" class="brand__identity">
         <div class="brand__icon">
           <mat-icon class="brand__icon-symbol">auto_awesome</mat-icon>
         </div>
         <span class="brand__title">SubWise</span>
-      </div>
-
-      <div class="language-picker language-picker--desktop">
-        <button
-          type="button"
-          class="language-picker__trigger"
-          [matMenuTriggerFor]="languageMenu"
-        >
-          <span class="language-picker__code">{{ activeLanguage().shortLabel }}</span>
-          <mat-icon class="language-picker__icon">expand_more</mat-icon>
-        </button>
-      </div>
+      </a>
     </div>
 
     <nav class="sidebar__nav">
@@ -31,7 +20,7 @@
         {{ copy().dashboard }}
       </a>
       <a
-        routerLink="/sovety"
+        routerLink="/insight"
         routerLinkActive="bg-indigo-50 text-indigo-700"
         class="nav-link"
       >
@@ -48,27 +37,47 @@
       </a>
     </nav>
 
+    <div class="sidebar__controls">
+      <div class="sidebar__control-card">
+        <div class="language-picker language-picker--desktop">
+          <button
+            type="button"
+            class="language-picker__trigger"
+            [matMenuTriggerFor]="languageMenu"
+          >
+            <span class="language-picker__label">{{ activeLanguage().triggerLabel }}</span>
+            <mat-icon class="language-picker__icon">expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="sidebar__cta">
-      <a
-        routerLink="/add"
+      <button
+        type="button"
+        (click)="openAddSubscriptionDialog()"
         class="primary-link"
       >
         <mat-icon class="primary-link__icon">add</mat-icon>
         {{ copy().add }}
-      </a>
+      </button>
     </div>
   </aside>
 
   <main class="content">
-    <div class="language-picker language-picker--mobile">
-      <button
-        type="button"
-        class="language-picker__trigger"
-        [matMenuTriggerFor]="languageMenu"
-      >
-        <span class="language-picker__code">{{ activeLanguage().shortLabel }}</span>
-        <mat-icon class="language-picker__icon">expand_more</mat-icon>
-      </button>
+    <div class="sidebar__controls sidebar__controls--mobile">
+      <div class="sidebar__control-card">
+        <div class="language-picker language-picker--mobile">
+          <button
+            type="button"
+            class="language-picker__trigger"
+            [matMenuTriggerFor]="languageMenu"
+          >
+            <span class="language-picker__label">{{ activeLanguage().triggerLabel }}</span>
+            <mat-icon class="language-picker__icon">expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
     <router-outlet></router-outlet>
   </main>
@@ -84,7 +93,7 @@
       <span class="bottom-nav__label">{{ copy().dashboard }}</span>
     </a>
     <a
-      routerLink="/sovety"
+      routerLink="/insight"
       routerLinkActive="text-indigo-600"
       class="bottom-nav__link"
     >
@@ -92,12 +101,13 @@
       <span class="bottom-nav__label">{{ copy().insights }}</span>
     </a>
     <div class="bottom-nav__cta-wrap">
-      <a
-        routerLink="/add"
+      <button
+        type="button"
+        (click)="openAddSubscriptionDialog()"
         class="bottom-nav__cta"
       >
         <mat-icon>add</mat-icon>
-      </a>
+      </button>
     </div>
       <a
         routerLink="/summary"
@@ -112,10 +122,7 @@
   <mat-menu #languageMenu="matMenu" class="language-menu">
     @for (language of languages; track language.code) {
       <button mat-menu-item (click)="setLocale(language.code)" class="language-menu__item">
-        <span class="language-menu__row">
-          <span class="language-menu__native">{{ language.nativeLabel }}</span>
-          <span class="language-menu__meta">{{ language.shortLabel }}</span>
-        </span>
+        <span class="language-menu__native">{{ language.nativeLabel }}</span>
       </button>
     }
   </mat-menu>

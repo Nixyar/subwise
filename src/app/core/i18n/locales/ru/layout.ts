@@ -5,7 +5,5 @@ export const layoutRu: AppShellIntl = {
   insights: 'Советы',
   summary: 'Мой итог',
   summaryShort: 'Итог',
-  add: 'Добавить',
-  languageRu: 'RU',
-  languageEn: 'EN',
+  add: 'Добавить подписку',
 };

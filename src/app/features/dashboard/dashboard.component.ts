@@ -6,18 +6,20 @@ import { LocaleService } from '../../core/i18n/locale.service';
 import { interpolate } from '../../core/i18n/interpolate';
 import { translations } from '../../core/i18n/translations';
 import { Category, Currency, Cycle } from '../subscriptions/subscription.model';
-import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { SubscriptionDialogService } from '../subscriptions/subscription-dialog.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
   subService = inject(SubscriptionService);
   localeService = inject(LocaleService);
+  subscriptionDialogService = inject(SubscriptionDialogService);
   copy = computed(() => translations[this.localeService.locale()].dashboard);
 
   getCategoryIcon(category: string): string {
@@ -60,6 +62,31 @@ export class DashboardComponent {
 
   formatDate(date: string): string {
     return this.localeService.formatDate(date);
+  }
+
+  openAddSubscriptionDialog() {
+    this.subscriptionDialogService.openAddDialog();
+  }
+
+  deleteSubscription(id: string, name: string) {
+    const subscription = this.subService.subscriptions().find((sub) => sub.id === id);
+    if (!subscription) {
+      return;
+    }
+
+    this.subscriptionDialogService
+      .openDeleteDialog({
+        title: this.copy().deleteConfirmTitle,
+        description: `${name}. ${this.copy().deleteConfirmDescription}`,
+        confirmLabel: this.copy().deleteConfirmSubmit,
+        cancelLabel: translations[this.localeService.locale()].addSubscription.cancel,
+      })
+      .afterClosed()
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.subService.removeSubscription(id);
+        }
+      });
   }
 
   getCategoryName(category: string): string {
