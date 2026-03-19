@@ -8,6 +8,7 @@ import { LocaleService, DISPLAY_CURRENCIES } from '../i18n/locale.service';
 import { translations } from '../i18n/translations';
 import { SubscriptionDialogService } from '../../features/subscriptions/subscription-dialog.service';
 import { Currency } from '../../features/subscriptions/subscription.model';
+import { routesMap } from '../../routes/routes';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +28,7 @@ export class AppShellComponent {
   );
   readonly displayCurrencies = DISPLAY_CURRENCIES;
   readonly activeCurrency = this.localeService.displayCurrency;
+  readonly routes = routesMap;
 
   setLocale(locale: AppLocale) {
     this.localeService.setLocale(locale);

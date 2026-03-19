@@ -137,6 +137,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -144,6 +145,73 @@
   color: #111827;
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+.section-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.section-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 16rem;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.section-search__icon {
+  color: #111827;
+}
+
+.section-search__input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111827;
+  font: inherit;
+}
+
+.section-search__input::placeholder {
+  color: #9ca3af;
+}
+
+.section-action {
+  min-height: 3rem;
+  min-width: 0;
+  padding: 0 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.section-action__icon {
+  margin-left: 0.5rem;
+  color: #4b5563;
+}
+
+.section-action__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.category-filter-item {
+  padding: 0 1rem;
+}
+
+.category-filter-item__checkbox {
+  width: 100%;
 }
 
 .subscriptions-card {
@@ -289,15 +357,52 @@
 
 .subscription-row__delete {
   color: #9ca3af;
+  --mdc-icon-button-state-layer-size: 2rem;
+  --mat-icon-button-state-layer-color: transparent;
+  --mat-icon-button-ripple-color: transparent;
+  background: transparent;
+  box-shadow: none;
 }
 
 .subscription-row__delete:hover {
   color: #dc2626;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-actions {
+    justify-content: flex-start;
+  }
+
+  .section-search {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .section-action {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .subscription-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.875rem;
+  }
+
+  .subscription-row__pricing {
+    justify-content: space-between;
   }
 }
 

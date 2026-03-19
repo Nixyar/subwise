@@ -1,6 +1,6 @@
-import { AppShellIntl } from '../../translations.model';
+import { AppShellIntl } from '../../i18n/translations.model';
 
-export const layoutEn: AppShellIntl = {
+export const appShellIntlEn: AppShellIntl = {
   dashboard: 'Dashboard',
   insights: 'Advice',
   summary: 'My Summary',

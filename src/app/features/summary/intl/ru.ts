@@ -1,6 +1,6 @@
-import { SummaryIntl } from '../../translations.model';
+import { SummaryIntl } from '../../../core/i18n/translations.model';
 
-export const summaryRu: SummaryIntl = {
+export const summaryIntlRu: SummaryIntl = {
   title: 'Мой итог',
   subtitle: 'Поделись своими результатами и оцени траты на подписки',
   spendingLabel: 'Я трачу на подписки',

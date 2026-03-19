@@ -1,6 +1,6 @@
-import { AddSubscriptionIntl, SubscriptionIntl } from '../../translations.model';
+import { AddSubscriptionIntl, SubscriptionIntl } from '../../../core/i18n/translations.model';
 
-export const addSubscriptionRu: AddSubscriptionIntl = {
+export const addSubscriptionIntlRu: AddSubscriptionIntl = {
   title: 'Добавить подписку',
   subtitle: 'Заполни данные, чтобы приложение отслеживало списания и расходы',
   name: 'Название сервиса',
@@ -21,7 +21,7 @@ export const addSubscriptionRu: AddSubscriptionIntl = {
   yearly: 'В год',
 };
 
-export const subscriptionsRu: SubscriptionIntl = {
+export const subscriptionsIntlRu: SubscriptionIntl = {
   categories: {
     streaming: 'Стриминг',
     music: 'Музыка',

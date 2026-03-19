@@ -37,11 +37,43 @@
   <section class="subscriptions-section">
     <div class="section-header">
       <h2 class="section-title">{{ copy().subscriptions }}</h2>
+      <div class="section-actions">
+        <label class="section-search" [attr.aria-label]="copy().searchPlaceholder">
+          <mat-icon class="section-search__icon">search</mat-icon>
+          <input
+            type="search"
+            class="section-search__input"
+            [placeholder]="copy().searchPlaceholder"
+            [value]="searchQuery()"
+            (input)="setSearchQuery($any($event.target).value)"
+          />
+        </label>
+
+        <button
+          mat-button
+          type="button"
+          class="section-action"
+          [matMenuTriggerFor]="categoryMenu"
+        >
+          <span class="section-action__label">{{ getCategoryFilterLabel() }}</span>
+          <mat-icon class="section-action__icon">expand_more</mat-icon>
+        </button>
+
+        <button
+          mat-button
+          type="button"
+          class="section-action"
+          [matMenuTriggerFor]="sortMenu"
+        >
+          <span class="section-action__label">{{ getSortLabel() }}</span>
+          <mat-icon class="section-action__icon">expand_more</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div class="subscriptions-card">
       <div class="subscriptions-list">
-        @for (sub of subService.subscriptions(); track sub.id) {
+        @for (sub of visibleSubscriptions(); track sub.id) {
           <div class="subscription-row">
             <div class="subscription-row__main">
               <div class="subscription-row__icon-wrap">
@@ -103,3 +135,40 @@
     </div>
   </section>
 </div>
+
+<mat-menu #categoryMenu="matMenu" xPosition="before">
+  <button mat-menu-item type="button" (click)="resetCategories()">
+    <mat-icon>{{ isCategoryFilterEmpty() || areAllCategoriesSelected() ? 'done' : 'remove' }}</mat-icon>
+    <span>{{ copy().categoryAll }}</span>
+  </button>
+  @for (category of categoryOptions; track category) {
+    <div class="category-filter-item" (click)="$event.stopPropagation()">
+      <mat-checkbox
+        class="category-filter-item__checkbox"
+        [checked]="isCategorySelected(category) || areAllCategoriesSelected()"
+        (change)="toggleCategory(category)"
+      >
+        {{ getCategoryName(category) }}
+      </mat-checkbox>
+    </div>
+  }
+</mat-menu>
+
+<mat-menu #sortMenu="matMenu" xPosition="before">
+  <button mat-menu-item type="button" (click)="setSort('term')">
+    <mat-icon>{{ sort() === 'term' ? 'done' : 'remove' }}</mat-icon>
+    <span>{{ copy().sortTerm }}</span>
+  </button>
+  <button mat-menu-item type="button" (click)="setSort('priceDesc')">
+    <mat-icon>{{ sort() === 'priceDesc' ? 'done' : 'remove' }}</mat-icon>
+    <span>{{ copy().sortPriceDesc }}</span>
+  </button>
+  <button mat-menu-item type="button" (click)="setSort('priceAsc')">
+    <mat-icon>{{ sort() === 'priceAsc' ? 'done' : 'remove' }}</mat-icon>
+    <span>{{ copy().sortPriceAsc }}</span>
+  </button>
+  <button mat-menu-item type="button" (click)="setSort('name')">
+    <mat-icon>{{ sort() === 'name' ? 'done' : 'remove' }}</mat-icon>
+    <span>{{ copy().sortName }}</span>
+  </button>
+</mat-menu>

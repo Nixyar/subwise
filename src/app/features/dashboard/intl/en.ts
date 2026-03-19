@@ -1,6 +1,6 @@
-import { DashboardIntl } from '../../translations.model';
+import { DashboardIntl } from '../../../core/i18n/translations.model';
 
-export const dashboardEn: DashboardIntl = {
+export const dashboardIntlEn: DashboardIntl = {
   title: 'Dashboard',
   subtitle: 'Your subscriptions are under control',
   monthly: 'Per month',
@@ -21,4 +21,12 @@ export const dashboardEn: DashboardIntl = {
   deleteConfirmTitle: 'Delete subscription?',
   deleteConfirmDescription: 'This subscription will be removed from the list and cannot be restored.',
   deleteConfirmSubmit: 'Delete',
+  searchPlaceholder: 'Search...',
+  categoryAll: 'All categories',
+  categorySelected: 'Selected',
+  sortLabel: 'Sort',
+  sortTerm: 'By billing date',
+  sortPriceDesc: 'Most expensive first',
+  sortPriceAsc: 'Cheapest first',
+  sortName: 'Name',
 };

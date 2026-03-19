@@ -1,6 +1,6 @@
-import { DashboardIntl } from '../../translations.model';
+import { DashboardIntl } from '../../../core/i18n/translations.model';
 
-export const dashboardRu: DashboardIntl = {
+export const dashboardIntlRu: DashboardIntl = {
   title: 'Дашборд',
   subtitle: 'Твои подписки под контролем',
   monthly: 'В месяц',
@@ -21,4 +21,12 @@ export const dashboardRu: DashboardIntl = {
   deleteConfirmTitle: 'Удалить подписку?',
   deleteConfirmDescription: 'Подписка будет удалена из списка без возможности восстановления.',
   deleteConfirmSubmit: 'Удалить',
+  searchPlaceholder: 'Поиск...',
+  categoryAll: 'Все категории',
+  categorySelected: 'Выбрано',
+  sortLabel: 'Сортировка',
+  sortTerm: 'По дате списания',
+  sortPriceDesc: 'Сначала дорогие',
+  sortPriceAsc: 'Сначала дешёвые',
+  sortName: 'По имени',
 };

@@ -1,7 +1,7 @@
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand">
-      <a routerLink="/" class="brand__identity">
+      <a [routerLink]="routes.dashboard.link" class="brand__identity">
         <div class="brand__icon">
           <mat-icon class="brand__icon-symbol">auto_awesome</mat-icon>
         </div>
@@ -11,7 +11,7 @@
 
     <nav class="sidebar__nav">
       <a
-        routerLink="/"
+        [routerLink]="routes.dashboard.link"
         routerLinkActive="bg-indigo-50 text-indigo-700"
         [routerLinkActiveOptions]="{exact: true}"
         class="nav-link"
@@ -20,7 +20,7 @@
         {{ copy().dashboard }}
       </a>
       <a
-        routerLink="/insight"
+        [routerLink]="routes.insights.link"
         routerLinkActive="bg-indigo-50 text-indigo-700"
         class="nav-link"
       >
@@ -28,7 +28,7 @@
         {{ copy().insights }}
       </a>
       <a
-        routerLink="/summary"
+        [routerLink]="routes.summary.link"
         routerLinkActive="bg-indigo-50 text-indigo-700"
         class="nav-link"
       >
@@ -106,7 +106,7 @@
 
   <nav class="bottom-nav">
     <a
-      routerLink="/"
+      [routerLink]="routes.dashboard.link"
       routerLinkActive="text-indigo-600"
       [routerLinkActiveOptions]="{exact: true}"
       class="bottom-nav__link"
@@ -115,7 +115,7 @@
       <span class="bottom-nav__label">{{ copy().dashboard }}</span>
     </a>
     <a
-      routerLink="/insight"
+      [routerLink]="routes.insights.link"
       routerLinkActive="text-indigo-600"
       class="bottom-nav__link"
     >
@@ -132,7 +132,7 @@
       </button>
     </div>
       <a
-        routerLink="/summary"
+        [routerLink]="routes.summary.link"
         routerLinkActive="text-indigo-600"
         class="bottom-nav__link"
       >

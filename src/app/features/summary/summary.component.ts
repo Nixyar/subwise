@@ -106,7 +106,7 @@ export class SummaryComponent {
 
     try {
       const canvas = await html2canvas(element, {
-        scale: 2, // Higher resolution
+        scale: 2,
         backgroundColor: null,
       });
       

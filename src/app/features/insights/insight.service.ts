@@ -28,7 +28,6 @@ export class InsightService {
     const today = new Date();
 
     subs.forEach(sub => {
-      // 1. Forgotten subscriptions (> 30 days)
       if (sub.lastUsedDate) {
         const lastUsed = new Date(sub.lastUsedDate);
         const diffDays = Math.floor((today.getTime() - lastUsed.getTime()) / (1000 * 3600 * 24));
@@ -52,7 +51,6 @@ export class InsightService {
         }
       }
 
-      // 2. Trial calendar
       if (sub.isTrial && sub.trialEndDate) {
         const trialEnd = new Date(sub.trialEndDate);
         const diffDays = Math.floor((trialEnd.getTime() - today.getTime()) / (1000 * 3600 * 24));
@@ -72,7 +70,6 @@ export class InsightService {
         }
       }
 
-      // 3. Cheaper together
       if (sub.name.toLowerCase().includes('spotify') && sub.price > 300 && sub.price < 1000) {
          insights.push({
             id: `family-${sub.id}`,
@@ -82,7 +79,6 @@ export class InsightService {
          });
       }
 
-      // 4. Free alternatives
       if (sub.name.toLowerCase().includes('todoist') && sub.price > 0) {
          insights.push({
             id: `alt-${sub.id}`,
@@ -101,8 +97,7 @@ export class InsightService {
             description: copy.dropboxAlternative,
          });
       }
-      
-      // 5. Annual trap
+
       if (sub.name.toLowerCase().includes('netflix') && sub.cycle === 'month') {
           insights.push({
             id: `annual-${sub.id}`,
@@ -117,7 +112,6 @@ export class InsightService {
       }
     });
 
-    // 6. AI Duplicates
     const aiKeywords = ['chatgpt', 'claude', 'midjourney', 'copilot', 'openai'];
     const aiSubs = subs.filter((s) => aiKeywords.some((kw) => s.name.toLowerCase().includes(kw)));
     const aiSubsByCurrency = new Map<string, typeof aiSubs>();
