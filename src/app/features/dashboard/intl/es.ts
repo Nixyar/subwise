@@ -1,6 +1,6 @@
-import { DashboardIntl } from '../../translations.model';
+import { DashboardIntl } from '../../../core/i18n/translations.model';
 
-export const dashboardEs: DashboardIntl = {
+export const dashboardIntlEs: DashboardIntl = {
   title: 'Panel',
   subtitle: 'Tus suscripciones bajo control',
   monthly: 'Por mes',

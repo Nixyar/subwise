@@ -1,33 +1,47 @@
 import { AppLocale } from './locale.model';
 import { AppTranslations } from './translations.model';
-import { layoutRu } from './locales/ru/layout';
-import { dashboardRu } from './locales/ru/dashboard';
-import { insightRu, insightsRu } from './locales/ru/insights';
-import { addSubscriptionRu, subscriptionsRu } from './locales/ru/subscriptions';
-import { summaryRu } from './locales/ru/summary';
-import { layoutEn } from './locales/en/layout';
-import { dashboardEn } from './locales/en/dashboard';
-import { insightEn, insightsEn } from './locales/en/insights';
-import { addSubscriptionEn, subscriptionsEn } from './locales/en/subscriptions';
-import { summaryEn } from './locales/en/summary';
+import { appShellIntlRu } from '../layout/intl/ru';
+import { appShellIntlEn } from '../layout/intl/en';
+import { appShellIntlEs } from '../layout/intl/es';
+import { dashboardIntlRu } from '../../features/dashboard/intl/ru';
+import { dashboardIntlEn } from '../../features/dashboard/intl/en';
+import { dashboardIntlEs } from '../../features/dashboard/intl/es';
+import { insightIntlRu, insightsIntlRu } from '../../features/insights/intl/ru';
+import { insightIntlEn, insightsIntlEn } from '../../features/insights/intl/en';
+import { insightIntlEs, insightsIntlEs } from '../../features/insights/intl/es';
+import { addSubscriptionIntlRu, subscriptionsIntlRu } from '../../features/subscriptions/intl/ru';
+import { addSubscriptionIntlEn, subscriptionsIntlEn } from '../../features/subscriptions/intl/en';
+import { addSubscriptionIntlEs, subscriptionsIntlEs } from '../../features/subscriptions/intl/es';
+import { summaryIntlRu } from '../../features/summary/intl/ru';
+import { summaryIntlEn } from '../../features/summary/intl/en';
+import { summaryIntlEs } from '../../features/summary/intl/es';
 
 export const translations: Record<AppLocale, AppTranslations> = {
   ru: {
-    layout: layoutRu,
-    dashboard: dashboardRu,
-    insights: insightsRu,
-    insight: insightRu,
-    addSubscription: addSubscriptionRu,
-    subscriptions: subscriptionsRu,
-    summary: summaryRu,
+    layout: appShellIntlRu,
+    dashboard: dashboardIntlRu,
+    insights: insightsIntlRu,
+    insight: insightIntlRu,
+    addSubscription: addSubscriptionIntlRu,
+    subscriptions: subscriptionsIntlRu,
+    summary: summaryIntlRu,
   },
   en: {
-    layout: layoutEn,
-    dashboard: dashboardEn,
-    insights: insightsEn,
-    insight: insightEn,
-    addSubscription: addSubscriptionEn,
-    subscriptions: subscriptionsEn,
-    summary: summaryEn,
+    layout: appShellIntlEn,
+    dashboard: dashboardIntlEn,
+    insights: insightsIntlEn,
+    insight: insightIntlEn,
+    addSubscription: addSubscriptionIntlEn,
+    subscriptions: subscriptionsIntlEn,
+    summary: summaryIntlEn,
+  },
+  es: {
+    layout: appShellIntlEs,
+    dashboard: dashboardIntlEs,
+    insights: insightsIntlEs,
+    insight: insightIntlEs,
+    addSubscription: addSubscriptionIntlEs,
+    subscriptions: subscriptionsIntlEs,
+    summary: summaryIntlEs,
   },
 };

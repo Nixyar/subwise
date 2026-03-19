@@ -1,6 +1,6 @@
-import { DashboardIntl } from '../../translations.model';
+import { DashboardIntl } from '../../../core/i18n/translations.model';
 
-export const dashboardEn: DashboardIntl = {
+export const dashboardIntlEn: DashboardIntl = {
   title: 'Dashboard',
   subtitle: 'Your subscriptions are under control',
   monthly: 'Per month',
@@ -29,5 +29,4 @@ export const dashboardEn: DashboardIntl = {
   sortPriceDesc: 'Most expensive first',
   sortPriceAsc: 'Cheapest first',
   sortName: 'Name',
-  
 };

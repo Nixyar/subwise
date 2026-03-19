@@ -1,6 +1,6 @@
-import { InsightIntl, InsightsIntl } from '../../translations.model';
+import { InsightIntl, InsightsIntl } from '../../../core/i18n/translations.model';
 
-export const insightsRu: InsightsIntl = {
+export const insightsIntlRu: InsightsIntl = {
   title: 'Советы',
   subtitle: 'Умные советы по оптимизации твоих расходов',
   potentialSavings: 'Потенциальная экономия',
@@ -10,7 +10,7 @@ export const insightsRu: InsightsIntl = {
   emptyText: 'Мы не нашли способов оптимизировать твои текущие подписки.',
 };
 
-export const insightRu: InsightIntl = {
+export const insightIntlRu: InsightIntl = {
   forgottenTitle: 'Забытая подписка: {name}',
   forgottenDescription: 'Ты не открывал {name} уже {days} {daysLabel}, а платишь {price}/{cycle}. Это {yearly} в год.',
   trialTitle: 'Скоро закончится пробный период: {name}',

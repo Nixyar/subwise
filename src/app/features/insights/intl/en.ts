@@ -1,6 +1,6 @@
-import { InsightIntl, InsightsIntl } from '../../translations.model';
+import { InsightIntl, InsightsIntl } from '../../../core/i18n/translations.model';
 
-export const insightsEn: InsightsIntl = {
+export const insightsIntlEn: InsightsIntl = {
   title: 'Advice',
   subtitle: 'Smart tips for optimizing your subscription costs',
   potentialSavings: 'Potential savings',
@@ -10,7 +10,7 @@ export const insightsEn: InsightsIntl = {
   emptyText: 'We did not find ways to optimize your current subscriptions.',
 };
 
-export const insightEn: InsightIntl = {
+export const insightIntlEn: InsightIntl = {
   forgottenTitle: 'Forgotten subscription: {name}',
   forgottenDescription: 'You have not opened {name} for {days} {daysLabel}, but you still pay {price}/{cycle}. That is {yearly} per year.',
   trialTitle: 'Trial ending soon: {name}',
