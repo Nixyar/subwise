@@ -3,9 +3,11 @@ import {RouterOutlet, RouterLink, RouterLinkActive} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { languages } from '../i18n/languages';
-import { LocaleService } from '../i18n/locale.service';
+import { AppLocale } from '../i18n/locale.model';
+import { LocaleService, DISPLAY_CURRENCIES } from '../i18n/locale.service';
 import { translations } from '../i18n/translations';
 import { SubscriptionDialogService } from '../../features/subscriptions/subscription-dialog.service';
+import { Currency } from '../../features/subscriptions/subscription.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,9 +25,15 @@ export class AppShellComponent {
   readonly activeLanguage = computed(
     () => this.languages.find((language) => language.code === this.locale()) ?? this.languages[0],
   );
+  readonly displayCurrencies = DISPLAY_CURRENCIES;
+  readonly activeCurrency = this.localeService.displayCurrency;
 
-  setLocale(locale: 'ru' | 'en') {
+  setLocale(locale: AppLocale) {
     this.localeService.setLocale(locale);
+  }
+
+  setDisplayCurrency(currency: Currency) {
+    this.localeService.setDisplayCurrency(currency);
   }
 
   openAddSubscriptionDialog() {

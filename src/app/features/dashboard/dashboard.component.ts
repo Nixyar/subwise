@@ -34,8 +34,8 @@ export class DashboardComponent {
     return icons[category] || 'category';
   }
 
-  formatMoney(amount: number, currency: Currency = 'RUB'): string {
-    return this.localeService.formatMoney(amount, currency);
+  formatMoney(amount: number, currency: Currency = 'USD'): string {
+    return this.localeService.formatInDisplayCurrency(amount, currency);
   }
 
   monthlyTotalText(): string {

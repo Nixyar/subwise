@@ -53,8 +53,8 @@ export class SummaryComponent {
     return `${this.formatMoney(sub.price, sub.currency)}/${translations[this.localeService.locale()].subscriptions.cycles[sub.cycle]}`;
   }
 
-  formatMoney(amount: number, currency: Currency = 'RUB'): string {
-    return this.localeService.formatMoney(amount, currency);
+  formatMoney(amount: number, currency: Currency = 'USD'): string {
+    return this.localeService.formatInDisplayCurrency(amount, currency);
   }
 
   monthlyTotalText(): string {
