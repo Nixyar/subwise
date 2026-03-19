@@ -21,4 +21,13 @@ export const dashboardEn: DashboardIntl = {
   deleteConfirmTitle: 'Delete subscription?',
   deleteConfirmDescription: 'This subscription will be removed from the list and cannot be restored.',
   deleteConfirmSubmit: 'Delete',
+  searchPlaceholder: 'Search...',
+  categoryAll: 'All categories',
+  categorySelected: 'Selected',
+  sortLabel: 'Sort',
+  sortTerm: 'By billing date',
+  sortPriceDesc: 'Most expensive first',
+  sortPriceAsc: 'Cheapest first',
+  sortName: 'Name',
+  
 };

@@ -29,6 +29,14 @@ export type DashboardIntl = {
   deleteConfirmTitle: string;
   deleteConfirmDescription: string;
   deleteConfirmSubmit: string;
+  searchPlaceholder: string;
+  categoryAll: string;
+  categorySelected: string;
+  sortLabel: string;
+  sortTerm: string;
+  sortPriceDesc: string;
+  sortPriceAsc: string;
+  sortName: string;
 };
 
 export type InsightsIntl = {

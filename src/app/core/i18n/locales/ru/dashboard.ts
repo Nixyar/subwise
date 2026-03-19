@@ -21,4 +21,12 @@ export const dashboardRu: DashboardIntl = {
   deleteConfirmTitle: 'Удалить подписку?',
   deleteConfirmDescription: 'Подписка будет удалена из списка без возможности восстановления.',
   deleteConfirmSubmit: 'Удалить',
+  searchPlaceholder: 'Поиск...',
+  categoryAll: 'Все категории',
+  categorySelected: 'Выбрано',
+  sortLabel: 'Сортировка',
+  sortTerm: 'По дате списания',
+  sortPriceDesc: 'Сначала дорогие',
+  sortPriceAsc: 'Сначала дешёвые',
+  sortName: 'По имени',
 };
