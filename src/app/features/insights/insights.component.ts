@@ -31,7 +31,7 @@ export class InsightsComponent {
 
   potentialSavingsText(amount: number, currency?: 'RUB' | 'USD' | 'EUR'): string {
     return interpolate(this.copy().potentialSavingsValue, {
-      amount: currency ? this.localeService.formatMoney(amount, currency) : String(amount),
+      amount: currency ? this.localeService.formatInDisplayCurrency(amount, currency) : String(amount),
     });
   }
 

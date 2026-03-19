@@ -49,6 +49,17 @@
             <mat-icon class="language-picker__icon">expand_more</mat-icon>
           </button>
         </div>
+
+        <div class="currency-picker">
+          @for (c of displayCurrencies; track c.code) {
+            <button
+              type="button"
+              class="currency-picker__btn"
+              [class.currency-picker__btn--active]="activeCurrency() === c.code"
+              (click)="setDisplayCurrency(c.code)"
+            >{{ c.symbol }}</button>
+          }
+        </div>
       </div>
     </div>
 
@@ -76,6 +87,17 @@
             <span class="language-picker__label">{{ activeLanguage().triggerLabel }}</span>
             <mat-icon class="language-picker__icon">expand_more</mat-icon>
           </button>
+        </div>
+
+        <div class="currency-picker">
+          @for (c of displayCurrencies; track c.code) {
+            <button
+              type="button"
+              class="currency-picker__btn"
+              [class.currency-picker__btn--active]="activeCurrency() === c.code"
+              (click)="setDisplayCurrency(c.code)"
+            >{{ c.symbol }}</button>
+          }
         </div>
       </div>
     </div>
