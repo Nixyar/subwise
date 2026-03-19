@@ -1,16 +1,37 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { AppLocale } from './locale.model';
 import { Currency } from '../../features/subscriptions/subscription.model';
+import { ExchangeRateService } from '../currency/exchange-rate.service';
 
 const STORAGE_KEY = 'subwise.locale';
-const CURRENCY_ORDER: Currency[] = ['RUB', 'USD', 'EUR'];
+const DISPLAY_CURRENCY_KEY = 'subwise.displayCurrency';
+
+export const DISPLAY_CURRENCIES: { code: Currency; symbol: string }[] = [
+  { code: 'USD', symbol: '$' },
+  { code: 'EUR', symbol: '€' },
+  { code: 'RUB', symbol: '₽' },
+];
 
 @Injectable({ providedIn: 'root' })
 export class LocaleService {
+  private readonly exchangeRateService = inject(ExchangeRateService);
+
   private readonly localeSignal = signal<AppLocale>(this.getInitialLocale());
+  private readonly displayCurrencySignal = signal<Currency>(this.getInitialDisplayCurrency());
 
   readonly locale = this.localeSignal.asReadonly();
-  readonly intlLocale = computed(() => this.localeSignal() === 'ru' ? 'ru-RU' : 'en-US');
+  readonly displayCurrency = this.displayCurrencySignal.asReadonly();
+
+  readonly intlLocale = computed(() => {
+    switch (this.localeSignal()) {
+      case 'ru':
+        return 'ru-RU';
+      case 'es':
+        return 'es-ES';
+      default:
+        return 'en-US';
+    }
+  });
 
   constructor() {
     this.syncDocumentLanguage(this.localeSignal());
@@ -25,7 +46,15 @@ export class LocaleService {
     }
   }
 
-  formatMoney(amount: number, currency: Currency = 'RUB'): string {
+  setDisplayCurrency(currency: Currency) {
+    this.displayCurrencySignal.set(currency);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(DISPLAY_CURRENCY_KEY, currency);
+    }
+  }
+
+  /** Format amount in its original currency (for display of raw subscription price) */
+  formatMoney(amount: number, currency: Currency = 'USD'): string {
     return new Intl.NumberFormat(this.intlLocale(), {
       style: 'currency',
       currency,
@@ -34,25 +63,28 @@ export class LocaleService {
     }).format(amount);
   }
 
+  /**
+   * Convert amount from its source currency to the selected display currency,
+   * then format. Use this everywhere a price needs to be shown to the user.
+   */
+  formatInDisplayCurrency(amount: number, from: Currency): string {
+    const target = this.displayCurrencySignal();
+    const converted = this.exchangeRateService.convert(amount, from, target);
+    return this.formatMoney(converted, target);
+  }
+
+  /**
+   * Converts all entries to the selected display currency, sums them up,
+   * and returns a single formatted string.
+   */
   formatMoneyBreakdown(entries: Array<{ amount: number; currency: Currency }>): string {
-    const totals = new Map<Currency, number>();
+    const target = this.displayCurrencySignal();
+    const total = entries.reduce((acc, entry) => {
+      if (!entry.amount) return acc;
+      return acc + this.exchangeRateService.convert(entry.amount, entry.currency, target);
+    }, 0);
 
-    for (const entry of entries) {
-      if (!entry.amount) {
-        continue;
-      }
-
-      totals.set(entry.currency, (totals.get(entry.currency) || 0) + entry.amount);
-    }
-
-    const parts = CURRENCY_ORDER
-      .map((currency) => {
-        const amount = totals.get(currency);
-        return amount ? this.formatMoney(amount, currency) : null;
-      })
-      .filter((value): value is string => Boolean(value));
-
-    return parts.length > 0 ? parts.join(' / ') : '0';
+    return this.formatMoney(total, target);
   }
 
   formatDate(date: string | Date): string {
@@ -64,24 +96,51 @@ export class LocaleService {
   }
 
   getDaysLabel(days: number): string {
-    return this.localeSignal() === 'ru'
-      ? this.getRussianDaysLabel(days)
-      : Math.abs(days) === 1 ? 'day' : 'days';
+    switch (this.localeSignal()) {
+      case 'ru':
+        return this.getRussianDaysLabel(days);
+      case 'es':
+        return Math.abs(days) === 1 ? 'dia' : 'dias';
+      default:
+        return Math.abs(days) === 1 ? 'day' : 'days';
+    }
   }
 
   private getInitialLocale(): AppLocale {
     if (typeof localStorage !== 'undefined') {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === 'ru' || saved === 'en') {
+      if (saved === 'ru' || saved === 'en' || saved === 'es') {
         return saved;
       }
     }
 
-    if (typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('en')) {
-      return 'en';
+    if (typeof navigator !== 'undefined') {
+      const language = navigator.language.toLowerCase();
+
+      if (language.startsWith('ru')) {
+        return 'ru';
+      }
+
+      if (language.startsWith('es')) {
+        return 'es';
+      }
+
+      if (language.startsWith('en')) {
+        return 'en';
+      }
     }
 
     return 'ru';
+  }
+
+  private getInitialDisplayCurrency(): Currency {
+    if (typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem(DISPLAY_CURRENCY_KEY);
+      if (saved === 'USD' || saved === 'EUR' || saved === 'RUB') {
+        return saved;
+      }
+    }
+    return 'USD';
   }
 
   private syncDocumentLanguage(locale: AppLocale) {
