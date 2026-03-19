@@ -138,7 +138,7 @@
 
 <mat-menu #categoryMenu="matMenu" xPosition="before">
   <button mat-menu-item type="button" (click)="resetCategories()">
-    <mat-icon>{{ selectedCategories().length === 0 ? 'done' : 'remove' }}</mat-icon>
+    <mat-icon>{{ isCategoryFilterEmpty() || areAllCategoriesSelected() ? 'done' : 'remove' }}</mat-icon>
     <span>{{ copy().categoryAll }}</span>
   </button>
   @for (category of categoryOptions; track category) {

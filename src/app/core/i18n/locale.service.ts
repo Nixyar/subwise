@@ -53,7 +53,6 @@ export class LocaleService {
     }
   }
 
-  /** Format amount in its original currency (for display of raw subscription price) */
   formatMoney(amount: number, currency: Currency = 'USD'): string {
     return new Intl.NumberFormat(this.intlLocale(), {
       style: 'currency',
@@ -63,20 +62,12 @@ export class LocaleService {
     }).format(amount);
   }
 
-  /**
-   * Convert amount from its source currency to the selected display currency,
-   * then format. Use this everywhere a price needs to be shown to the user.
-   */
   formatInDisplayCurrency(amount: number, from: Currency): string {
     const target = this.displayCurrencySignal();
     const converted = this.exchangeRateService.convert(amount, from, target);
     return this.formatMoney(converted, target);
   }
 
-  /**
-   * Converts all entries to the selected display currency, sums them up,
-   * and returns a single formatted string.
-   */
   formatMoneyBreakdown(entries: Array<{ amount: number; currency: Currency }>): string {
     const target = this.displayCurrencySignal();
     const total = entries.reduce((acc, entry) => {

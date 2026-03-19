@@ -9,8 +9,8 @@ export interface Subscription {
   currency: Currency;
   cycle: Cycle;
   category: Category;
-  nextBillingDate: string; // ISO date
-  lastUsedDate?: string; // ISO date
+  nextBillingDate: string;
+  lastUsedDate?: string;
   isTrial: boolean;
-  trialEndDate?: string; // ISO date
+  trialEndDate?: string;
 }

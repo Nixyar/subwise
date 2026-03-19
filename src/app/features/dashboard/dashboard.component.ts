@@ -139,6 +139,10 @@ export class DashboardComponent {
     return this.selectedCategories().length === this.categoryOptions.length;
   }
 
+  isCategoryFilterEmpty(): boolean {
+    return this.selectedCategories().length === 0;
+  }
+
   deleteSubscription(id: string, name: string) {
     const subscription = this.subService.subscriptions().find((sub) => sub.id === id);
     if (!subscription) {
@@ -221,12 +225,12 @@ export class DashboardComponent {
     if (total === 0) return 'conic-gradient(#f3f4f6 0% 100%)';
 
     const colors: Record<string, string> = {
-      'streaming': '#ef4444', // red-500
-      'music': '#10b981', // emerald-500
-      'cloud': '#3b82f6', // blue-500
-      'sport': '#f59e0b', // amber-500
-      'software': '#8b5cf6', // violet-500
-      'other': '#6b7280' // gray-500
+      'streaming': '#ef4444',
+      'music': '#10b981',
+      'cloud': '#3b82f6',
+      'sport': '#f59e0b',
+      'software': '#8b5cf6',
+      'other': '#6b7280'
     };
 
     let gradient = 'conic-gradient(';

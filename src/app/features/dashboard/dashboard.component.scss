@@ -357,10 +357,16 @@
 
 .subscription-row__delete {
   color: #9ca3af;
+  --mdc-icon-button-state-layer-size: 2rem;
+  --mat-icon-button-state-layer-color: transparent;
+  --mat-icon-button-ripple-color: transparent;
+  background: transparent;
+  box-shadow: none;
 }
 
 .subscription-row__delete:hover {
   color: #dc2626;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
