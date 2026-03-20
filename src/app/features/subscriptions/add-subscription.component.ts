@@ -1,6 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,41 +16,8 @@ import { Category, Currency, Cycle, Subscription } from './subscription.model';
 import { LocaleService } from '../../core/i18n/locale.service';
 import { translations } from '../../core/i18n/translations';
 import { SUBSCRIPTION_DATE_FORMATS, SubscriptionDateAdapter } from './subscription-date-adapter';
-
-function startOfDay(value: Date) {
-  const result = new Date(value);
-  result.setHours(0, 0, 0, 0);
-  return result;
-}
-
-function notInPastValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const selected = parseDateValue(control.value);
-    if (!selected) {
-      return null;
-    }
-
-    const today = startOfDay(new Date());
-    return selected < today ? { pastDate: true } : null;
-  };
-}
-
-function parseDateValue(value: unknown): Date | null {
-  if (!value) {
-    return null;
-  }
-
-  if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return startOfDay(value);
-  }
-
-  if (typeof value === 'string') {
-    const parsed = new Date(value);
-    return Number.isNaN(parsed.getTime()) ? null : startOfDay(parsed);
-  }
-
-  return null;
-}
+import { createNotInPastValidator, startOfDay } from './add-subscription-form.utils';
+import { SubscriptionSuggestionsService } from './subscription-suggestions.service';
 
 @Component({
   selector: 'app-add-subscription',
@@ -56,6 +25,7 @@ function parseDateValue(value: unknown): Date | null {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -74,25 +44,44 @@ function parseDateValue(value: unknown): Date | null {
   ],
 })
 export class AddSubscriptionComponent {
-  private fb = inject(FormBuilder);
-  private subService = inject(SubscriptionService);
-  private localeService = inject(LocaleService);
-  private dialogRef = inject(MatDialogRef<AddSubscriptionComponent, Subscription | undefined>, { optional: true });
-  copy = computed(() => translations[this.localeService.locale()].addSubscription);
+  private readonly fb = inject(FormBuilder);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly subService = inject(SubscriptionService);
+  private readonly localeService = inject(LocaleService);
+  private readonly suggestionsService = inject(SubscriptionSuggestionsService);
+  private readonly dialogRef = inject(MatDialogRef<AddSubscriptionComponent, Subscription | undefined>, { optional: true });
+  private readonly nameQuery = signal('');
+
+  readonly copy = computed(() => translations[this.localeService.locale()].addSubscription);
   readonly currencies: Currency[] = ['RUB', 'USD', 'EUR'];
   readonly russianDatePlaceholder = 'дд.мм.гггг';
   readonly today = startOfDay(new Date());
+  readonly suggestions = computed(() => this.suggestionsService.suggestions());
+  readonly filteredSuggestions = computed(() => {
+    const query = this.nameQuery().trim().toLowerCase();
+    if (!query) {
+      return [];
+    }
 
-  form = this.fb.group({
+    return this.suggestions().filter((suggestion) =>
+      suggestion.keywords.some((keyword) => keyword.includes(query)) ||
+      suggestion.name.toLowerCase().includes(query),
+    );
+  });
+
+  readonly form = this.fb.group({
     name: ['', Validators.required],
     price: [null as number | null, [Validators.required, Validators.min(0)]],
     currency: [this.getDefaultCurrency(), Validators.required],
     cycle: ['month' as Cycle, Validators.required],
     category: ['streaming' as Category, Validators.required],
-    nextBillingDate: [null as Date | null, [Validators.required, notInPastValidator()]],
+    website: [''],
+    nextBillingDate: [null as Date | null, [Validators.required, createNotInPastValidator()]],
     isTrial: [false],
     trialEndDate: [null as Date | null],
-    lastUsedDate: [null as Date | null]
+    lastUsedDate: [null as Date | null],
+    iconSlug: [''],
+    brandColor: [''],
   });
 
   constructor() {
@@ -100,7 +89,7 @@ export class AddSubscriptionComponent {
       const trialEndDateControl = this.form.controls.trialEndDate;
 
       if (isTrialEnabled) {
-        trialEndDateControl.addValidators([Validators.required, notInPastValidator()]);
+        trialEndDateControl.addValidators([Validators.required, createNotInPastValidator()]);
       } else {
         trialEndDateControl.clearValidators();
         trialEndDateControl.setValue(null);
@@ -111,6 +100,9 @@ export class AddSubscriptionComponent {
 
     updateTrialValidators(this.form.controls.isTrial.value ?? false);
     this.form.controls.isTrial.valueChanges.subscribe((isTrial) => updateTrialValidators(isTrial ?? false));
+    this.form.controls.name.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => this.nameQuery.set(value ?? ''));
   }
 
   onSubmit() {
@@ -123,10 +115,13 @@ export class AddSubscriptionComponent {
         currency: val.currency as Currency,
         cycle: val.cycle as Cycle,
         category: val.category as Category,
+        website: val.website?.trim() || undefined,
         nextBillingDate: this.toIsoDate(val.nextBillingDate as Date),
         isTrial: val.isTrial || false,
         trialEndDate: val.trialEndDate ? this.toIsoDate(val.trialEndDate as Date) : undefined,
-        lastUsedDate: val.lastUsedDate ? this.toIsoDate(val.lastUsedDate as Date) : undefined
+        lastUsedDate: val.lastUsedDate ? this.toIsoDate(val.lastUsedDate as Date) : undefined,
+        iconSlug: val.iconSlug?.trim() || undefined,
+        brandColor: val.brandColor?.trim() || undefined,
       };
 
       this.subService.addSubscription(newSub);
@@ -211,6 +206,24 @@ export class AddSubscriptionComponent {
     }
 
     return '';
+  }
+
+  applySuggestion(name: string) {
+    const suggestion = this.suggestions().find((entry) => entry.name === name);
+    if (!suggestion) {
+      return;
+    }
+
+    this.form.patchValue({
+      name: suggestion.name,
+      price: suggestion.price,
+      currency: suggestion.currency,
+      category: suggestion.category,
+      website: suggestion.website ?? '',
+      iconSlug: suggestion.iconSlug ?? '',
+      brandColor: suggestion.brandColor ?? '',
+    });
+    this.nameQuery.set(suggestion.name);
   }
 
   private getDefaultCurrency(): Currency {

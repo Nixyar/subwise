@@ -25,6 +25,8 @@ export type DashboardIntl = {
   billingDate: string;
   noSubscriptions: string;
   addSubscriptionAction: string;
+  manageAction: string;
+  manageUnavailable: string;
   deleteAction: string;
   deleteConfirmTitle: string;
   deleteConfirmDescription: string;
@@ -75,6 +77,8 @@ export type AddSubscriptionIntl = {
   currency: string;
   cycle: string;
   category: string;
+  website: string;
+  websitePlaceholder: string;
   nextBillingDate: string;
   isTrial: string;
   trialEndDate: string;

@@ -30,6 +30,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "subscription-suggestions.json",
+                "input": "src/app/features/subscriptions",
+                "output": "/"
               }
             ],
             "styles": [

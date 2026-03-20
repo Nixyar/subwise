@@ -13,4 +13,7 @@ export interface Subscription {
   lastUsedDate?: string;
   isTrial: boolean;
   trialEndDate?: string;
+  website?: string;
+  iconSlug?: string;
+  brandColor?: string;
 }

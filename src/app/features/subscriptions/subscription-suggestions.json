@@ -1,0 +1,1079 @@
+[
+  {
+    "name": "ChatGPT Plus",
+    "keywords": [
+      "chatgpt plus",
+      "chat gpt plus",
+      "gpt plus",
+      "openai plus"
+    ],
+    "price": 20,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://chat.openai.com/#settings",
+    "brandColor": "#10a37f",
+    "iconSlug": "openai"
+  },
+  {
+    "name": "ChatGPT Pro",
+    "keywords": [
+      "chatgpt pro",
+      "chat gpt pro",
+      "gpt pro",
+      "openai pro"
+    ],
+    "price": 200,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://chat.openai.com/#settings",
+    "brandColor": "#10a37f",
+    "iconSlug": "openai"
+  },
+  {
+    "name": "Claude Pro",
+    "keywords": [
+      "claude pro",
+      "anthropic pro",
+      "claude"
+    ],
+    "price": 20,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://claude.ai/settings/billing",
+    "brandColor": "#d97757",
+    "iconSlug": "anthropic"
+  },
+  {
+    "name": "Claude Max",
+    "keywords": [
+      "claude max",
+      "anthropic max"
+    ],
+    "price": 100,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://claude.ai/settings/billing",
+    "brandColor": "#d97757",
+    "iconSlug": "anthropic"
+  },
+  {
+    "name": "Gemini Advanced",
+    "keywords": [
+      "gemini",
+      "gemini advanced",
+      "google gemini",
+      "google ai"
+    ],
+    "price": 19.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://one.google.com/about/ai-premium",
+    "brandColor": "#4285f4",
+    "iconSlug": "googlegemini"
+  },
+  {
+    "name": "Perplexity Pro",
+    "keywords": [
+      "perplexity",
+      "perplexity pro"
+    ],
+    "price": 20,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.perplexity.ai/settings/subscription",
+    "brandColor": "#20b8cd",
+    "iconSlug": "perplexity"
+  },
+  {
+    "name": "Cursor Pro",
+    "keywords": [
+      "cursor",
+      "cursor pro"
+    ],
+    "price": 20,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.cursor.com/settings",
+    "brandColor": "#000000",
+    "iconSlug": "cursor"
+  },
+  {
+    "name": "Cursor Business",
+    "keywords": [
+      "cursor business"
+    ],
+    "price": 40,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.cursor.com/settings",
+    "brandColor": "#000000",
+    "iconSlug": "cursor"
+  },
+  {
+    "name": "GitHub Copilot Individual",
+    "keywords": [
+      "github copilot",
+      "copilot",
+      "github"
+    ],
+    "price": 10,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://github.com/settings/copilot",
+    "brandColor": "#24292f",
+    "iconSlug": "github"
+  },
+  {
+    "name": "GitHub Copilot Business",
+    "keywords": [
+      "github copilot business",
+      "copilot business"
+    ],
+    "price": 19,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://github.com/settings/copilot",
+    "brandColor": "#24292f",
+    "iconSlug": "github"
+  },
+  {
+    "name": "Netflix Standard",
+    "keywords": [
+      "netflix",
+      "нетфликс",
+      "netflix standard"
+    ],
+    "price": 15.49,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.netflix.com/account",
+    "brandColor": "#e50914",
+    "iconSlug": "netflix"
+  },
+  {
+    "name": "Netflix Premium",
+    "keywords": [
+      "netflix premium"
+    ],
+    "price": 22.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.netflix.com/account",
+    "brandColor": "#e50914",
+    "iconSlug": "netflix"
+  },
+  {
+    "name": "Spotify Individual",
+    "keywords": [
+      "spotify",
+      "спотифай"
+    ],
+    "price": 10.99,
+    "currency": "USD",
+    "category": "music",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.spotify.com/account/subscription",
+    "brandColor": "#1db954",
+    "iconSlug": "spotify"
+  },
+  {
+    "name": "Spotify Duo",
+    "keywords": [
+      "spotify duo"
+    ],
+    "price": 14.99,
+    "currency": "USD",
+    "category": "music",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.spotify.com/account/subscription",
+    "brandColor": "#1db954",
+    "iconSlug": "spotify"
+  },
+  {
+    "name": "Spotify Family",
+    "keywords": [
+      "spotify family"
+    ],
+    "price": 16.99,
+    "currency": "USD",
+    "category": "music",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.spotify.com/account/subscription",
+    "brandColor": "#1db954",
+    "iconSlug": "spotify"
+  },
+  {
+    "name": "Apple Music",
+    "keywords": [
+      "apple music"
+    ],
+    "price": 10.99,
+    "currency": "USD",
+    "category": "music",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://music.apple.com/account",
+    "brandColor": "#fc3c44",
+    "iconSlug": "applemusic"
+  },
+  {
+    "name": "Apple TV+",
+    "keywords": [
+      "apple tv",
+      "apple tv+",
+      "appletv"
+    ],
+    "price": 9.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://tv.apple.com/settings",
+    "brandColor": "#000000",
+    "iconSlug": "appletv"
+  },
+  {
+    "name": "Apple iCloud+ 50GB",
+    "keywords": [
+      "icloud",
+      "icloud 50",
+      "apple icloud"
+    ],
+    "price": 0.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.icloud.com/settings",
+    "brandColor": "#3a7bd5",
+    "iconSlug": "icloud"
+  },
+  {
+    "name": "Apple iCloud+ 200GB",
+    "keywords": [
+      "icloud 200"
+    ],
+    "price": 2.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.icloud.com/settings",
+    "brandColor": "#3a7bd5",
+    "iconSlug": "icloud"
+  },
+  {
+    "name": "Apple iCloud+ 2TB",
+    "keywords": [
+      "icloud 2tb"
+    ],
+    "price": 9.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.icloud.com/settings",
+    "brandColor": "#3a7bd5",
+    "iconSlug": "icloud"
+  },
+  {
+    "name": "YouTube Premium",
+    "keywords": [
+      "youtube",
+      "ютуб",
+      "youtube premium"
+    ],
+    "price": 13.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.youtube.com/paid_memberships",
+    "brandColor": "#ff0000",
+    "iconSlug": "youtube"
+  },
+  {
+    "name": "Disney+",
+    "keywords": [
+      "disney",
+      "disney+",
+      "диснейплюс"
+    ],
+    "price": 13.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.disneyplus.com/account",
+    "brandColor": "#113ccf",
+    "iconSlug": "disneyplus"
+  },
+  {
+    "name": "Amazon Prime",
+    "keywords": [
+      "amazon",
+      "prime",
+      "amazon prime"
+    ],
+    "price": 14.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.amazon.com/mc",
+    "brandColor": "#ff9900",
+    "iconSlug": "amazonprime"
+  },
+  {
+    "name": "Hulu",
+    "keywords": [
+      "hulu"
+    ],
+    "price": 7.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us"
+    ],
+    "website": "https://www.hulu.com/account",
+    "brandColor": "#1ce783",
+    "iconSlug": "hulu"
+  },
+  {
+    "name": "HBO Max",
+    "keywords": [
+      "hbo",
+      "max",
+      "hbo max"
+    ],
+    "price": 15.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.max.com/account",
+    "brandColor": "#002be7",
+    "iconSlug": "hbo"
+  },
+  {
+    "name": "Paramount+",
+    "keywords": [
+      "paramount",
+      "paramount+"
+    ],
+    "price": 7.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.paramountplus.com/account",
+    "brandColor": "#0064ff",
+    "iconSlug": "paramount"
+  },
+  {
+    "name": "Peacock",
+    "keywords": [
+      "peacock",
+      "nbc"
+    ],
+    "price": 7.99,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us"
+    ],
+    "website": "https://www.peacocktv.com/account",
+    "brandColor": "#000000",
+    "iconSlug": "nbc"
+  },
+  {
+    "name": "Microsoft 365 Personal",
+    "keywords": [
+      "microsoft",
+      "office",
+      "office 365",
+      "microsoft 365",
+      "word",
+      "excel"
+    ],
+    "price": 9.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://account.microsoft.com/services",
+    "brandColor": "#0078d4",
+    "iconSlug": "microsoft"
+  },
+  {
+    "name": "Microsoft 365 Family",
+    "keywords": [
+      "microsoft 365 family",
+      "office 365 family"
+    ],
+    "price": 12.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://account.microsoft.com/services",
+    "brandColor": "#0078d4",
+    "iconSlug": "microsoft"
+  },
+  {
+    "name": "Notion Plus",
+    "keywords": [
+      "notion",
+      "notion plus"
+    ],
+    "price": 10,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.notion.so/profile/plans",
+    "brandColor": "#000000",
+    "iconSlug": "notion"
+  },
+  {
+    "name": "Figma Professional",
+    "keywords": [
+      "figma"
+    ],
+    "price": 15,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.figma.com/settings/plans",
+    "brandColor": "#f24e1e",
+    "iconSlug": "figma"
+  },
+  {
+    "name": "Adobe Creative Cloud",
+    "keywords": [
+      "adobe",
+      "photoshop",
+      "illustrator",
+      "premiere",
+      "creative cloud",
+      "adobe cc"
+    ],
+    "price": 54.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://account.adobe.com/plans",
+    "brandColor": "#ff0000",
+    "iconSlug": "adobe"
+  },
+  {
+    "name": "Dropbox Plus",
+    "keywords": [
+      "dropbox",
+      "dropbox plus"
+    ],
+    "price": 11.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.dropbox.com/account/plan",
+    "brandColor": "#0061ff",
+    "iconSlug": "dropbox"
+  },
+  {
+    "name": "Google One 100GB",
+    "keywords": [
+      "google one",
+      "google drive",
+      "google one 100"
+    ],
+    "price": 2.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://one.google.com/storage",
+    "brandColor": "#4285f4",
+    "iconSlug": "google"
+  },
+  {
+    "name": "Google One 2TB",
+    "keywords": [
+      "google one 2tb",
+      "google drive 2tb"
+    ],
+    "price": 9.99,
+    "currency": "USD",
+    "category": "cloud",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://one.google.com/storage",
+    "brandColor": "#4285f4",
+    "iconSlug": "google"
+  },
+  {
+    "name": "1Password",
+    "keywords": [
+      "1password",
+      "one password"
+    ],
+    "price": 2.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://my.1password.com/profile",
+    "brandColor": "#1a8cff",
+    "iconSlug": "1password"
+  },
+  {
+    "name": "NordVPN",
+    "keywords": [
+      "nordvpn",
+      "nord vpn",
+      "vpn"
+    ],
+    "price": 4.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://my.nordaccount.com/subscriptions",
+    "brandColor": "#4687ff",
+    "iconSlug": "nordvpn"
+  },
+  {
+    "name": "LinkedIn Premium Career",
+    "keywords": [
+      "linkedin",
+      "линкедин",
+      "linkedin career"
+    ],
+    "price": 39.99,
+    "currency": "USD",
+    "category": "other",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.linkedin.com/premium/products",
+    "brandColor": "#0077b5",
+    "iconSlug": "linkedin"
+  },
+  {
+    "name": "LinkedIn Premium Business",
+    "keywords": [
+      "linkedin business",
+      "linkedin premium business"
+    ],
+    "price": 59.99,
+    "currency": "USD",
+    "category": "other",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.linkedin.com/premium/products",
+    "brandColor": "#0077b5",
+    "iconSlug": "linkedin"
+  },
+  {
+    "name": "Slack Pro",
+    "keywords": [
+      "slack"
+    ],
+    "price": 7.25,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://slack.com/account/billing",
+    "brandColor": "#611f69",
+    "iconSlug": "slack"
+  },
+  {
+    "name": "Zoom Pro",
+    "keywords": [
+      "zoom"
+    ],
+    "price": 15.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://zoom.us/billing",
+    "brandColor": "#2d8cff",
+    "iconSlug": "zoom"
+  },
+  {
+    "name": "Grammarly Premium",
+    "keywords": [
+      "grammarly"
+    ],
+    "price": 12,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://account.grammarly.com/subscription",
+    "brandColor": "#15c39a",
+    "iconSlug": "grammarly"
+  },
+  {
+    "name": "Duolingo Plus",
+    "keywords": [
+      "duolingo",
+      "дуолинго"
+    ],
+    "price": 6.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.duolingo.com/settings/subscription",
+    "brandColor": "#58cc02",
+    "iconSlug": "duolingo"
+  },
+  {
+    "name": "Headspace",
+    "keywords": [
+      "headspace"
+    ],
+    "price": 12.99,
+    "currency": "USD",
+    "category": "other",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.headspace.com/account",
+    "brandColor": "#f47d31",
+    "iconSlug": "headspace"
+  },
+  {
+    "name": "Calm",
+    "keywords": [
+      "calm"
+    ],
+    "price": 14.99,
+    "currency": "USD",
+    "category": "other",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://www.calm.com/subscriptions",
+    "brandColor": "#6b9fe4",
+    "iconSlug": "calm"
+  },
+  {
+    "name": "Obsidian Sync",
+    "keywords": [
+      "obsidian"
+    ],
+    "price": 8,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://obsidian.md/account",
+    "brandColor": "#7c3aed",
+    "iconSlug": "obsidian"
+  },
+  {
+    "name": "Todoist Pro",
+    "keywords": [
+      "todoist"
+    ],
+    "price": 4,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://todoist.com/app/settings/subscription",
+    "brandColor": "#db4035",
+    "iconSlug": "todoist"
+  },
+  {
+    "name": "Readwise",
+    "keywords": [
+      "readwise"
+    ],
+    "price": 7.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://readwise.io/accounts/manage",
+    "brandColor": "#f5c842",
+    "iconSlug": "readwise"
+  },
+  {
+    "name": "Setapp",
+    "keywords": [
+      "setapp"
+    ],
+    "price": 9.99,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://setapp.com/account",
+    "brandColor": "#8f5fca",
+    "iconSlug": "setapp"
+  },
+  {
+    "name": "Linear",
+    "keywords": [
+      "linear"
+    ],
+    "price": 8,
+    "currency": "USD",
+    "category": "software",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://linear.app/settings/billing",
+    "brandColor": "#5e6ad2",
+    "iconSlug": "linear"
+  },
+  {
+    "name": "Patreon",
+    "keywords": [
+      "patreon",
+      "патреон"
+    ],
+    "price": 5,
+    "currency": "USD",
+    "category": "other",
+    "markets": [
+      "us",
+      "eu",
+      "ru"
+    ],
+    "website": "https://www.patreon.com/settings/billing",
+    "brandColor": "#ff424d",
+    "iconSlug": "patreon"
+  },
+  {
+    "name": "Nebula",
+    "keywords": [
+      "nebula"
+    ],
+    "price": 5,
+    "currency": "USD",
+    "category": "streaming",
+    "markets": [
+      "us",
+      "eu"
+    ],
+    "website": "https://nebula.tv/settings",
+    "brandColor": "#000000",
+    "iconSlug": null
+  },
+  {
+    "name": "Яндекс Плюс",
+    "keywords": [
+      "яндекс",
+      "yandex",
+      "яндекс плюс",
+      "yandex plus"
+    ],
+    "price": 399,
+    "currency": "RUB",
+    "category": "streaming",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://plus.yandex.ru",
+    "brandColor": "#fc3f1d",
+    "iconSlug": "yandex"
+  },
+  {
+    "name": "VK Музыка",
+    "keywords": [
+      "vk music",
+      "вк музыка",
+      "vkontakte",
+      "вконтакте"
+    ],
+    "price": 199,
+    "currency": "RUB",
+    "category": "music",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://vk.com/music",
+    "brandColor": "#0077ff",
+    "iconSlug": "vk"
+  },
+  {
+    "name": "Okko",
+    "keywords": [
+      "okko",
+      "окко"
+    ],
+    "price": 399,
+    "currency": "RUB",
+    "category": "streaming",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://okko.tv/settings",
+    "brandColor": "#ff4a1c",
+    "iconSlug": null
+  },
+  {
+    "name": "Кинопоиск",
+    "keywords": [
+      "кинопоиск",
+      "kinopoisk"
+    ],
+    "price": 399,
+    "currency": "RUB",
+    "category": "streaming",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://www.kinopoisk.ru/my/subscription",
+    "brandColor": "#ff6600",
+    "iconSlug": null
+  },
+  {
+    "name": "START",
+    "keywords": [
+      "start",
+      "старт"
+    ],
+    "price": 399,
+    "currency": "RUB",
+    "category": "streaming",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://start.ru/profile",
+    "brandColor": "#e31e24",
+    "iconSlug": null
+  },
+  {
+    "name": "more.tv",
+    "keywords": [
+      "more tv",
+      "more.tv"
+    ],
+    "price": 299,
+    "currency": "RUB",
+    "category": "streaming",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://more.tv/settings",
+    "brandColor": "#ff4b2b",
+    "iconSlug": null
+  },
+  {
+    "name": "Яндекс 360",
+    "keywords": [
+      "яндекс 360",
+      "yandex 360",
+      "яндекс диск",
+      "yandex disk"
+    ],
+    "price": 249,
+    "currency": "RUB",
+    "category": "cloud",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://360.yandex.ru",
+    "brandColor": "#fc3f1d",
+    "iconSlug": "yandex"
+  },
+  {
+    "name": "SberPrime",
+    "keywords": [
+      "сбер прайм",
+      "sberprime",
+      "сбер"
+    ],
+    "price": 399,
+    "currency": "RUB",
+    "category": "other",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://www.sberbank.ru/ru/person/prime",
+    "brandColor": "#21a038",
+    "iconSlug": "sber"
+  },
+  {
+    "name": "2ГИС Про",
+    "keywords": [
+      "2gis",
+      "2гис",
+      "dgis"
+    ],
+    "price": 149,
+    "currency": "RUB",
+    "category": "software",
+    "markets": [
+      "ru"
+    ],
+    "website": "https://2gis.ru/profile",
+    "brandColor": "#00b33c",
+    "iconSlug": null
+  }
+]

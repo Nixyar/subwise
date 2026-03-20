@@ -17,6 +17,8 @@ export const dashboardIntlEs: DashboardIntl = {
   billingDate: 'Cobro: {date}',
   noSubscriptions: 'Todavia no has agregado suscripciones.',
   addSubscriptionAction: 'Agregar suscripcion',
+  manageAction: 'Gestionar suscripcion',
+  manageUnavailable: 'No se indico un enlace de suscripcion',
   deleteAction: 'Eliminar',
   deleteConfirmTitle: 'Eliminar suscripcion?',
   deleteConfirmDescription: 'La suscripcion se eliminara de la lista y no se podra recuperar.',
