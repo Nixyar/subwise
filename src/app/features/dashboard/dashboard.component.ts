@@ -10,25 +10,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { SubscriptionDialogService } from '../subscriptions/subscription-dialog.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 type DashboardSort = 'term' | 'priceDesc' | 'priceAsc' | 'name';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule],
+  imports: [CommonModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatTooltipModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  subService = inject(SubscriptionService);
-  localeService = inject(LocaleService);
-  subscriptionDialogService = inject(SubscriptionDialogService);
-  copy = computed(() => translations[this.localeService.locale()].dashboard);
-  searchQuery = signal('');
-  selectedCategories = signal<Category[]>([]);
-  sort = signal<DashboardSort>('term');
-  categoryOptions: Category[] = ['streaming', 'music', 'cloud', 'sport', 'software', 'other'];
-  visibleSubscriptions = computed(() => {
+  private readonly failedBrandIcons = signal<Record<string, true>>({});
+
+  readonly subService = inject(SubscriptionService);
+  readonly localeService = inject(LocaleService);
+  readonly subscriptionDialogService = inject(SubscriptionDialogService);
+  readonly copy = computed(() => translations[this.localeService.locale()].dashboard);
+  readonly searchQuery = signal('');
+  readonly selectedCategories = signal<Category[]>([]);
+  readonly sort = signal<DashboardSort>('term');
+  readonly categoryOptions: Category[] = ['streaming', 'music', 'cloud', 'sport', 'software', 'other'];
+  readonly visibleSubscriptions = computed(() => {
     const filtered = this.getFilteredSubscriptions(this.subService.subscriptions());
     return this.getSortedSubscriptions(filtered);
   });
@@ -162,6 +165,45 @@ export class DashboardComponent {
           this.subService.removeSubscription(id);
         }
       });
+  }
+
+  openSubscriptionManagement(url: string) {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  hasWebsite(subscription: Subscription): boolean {
+    return Boolean(subscription.website?.trim());
+  }
+
+  shouldShowBrandImage(subscription: Subscription): boolean {
+    return Boolean(this.getBrandIconUrl(subscription));
+  }
+
+  getBrandIconUrl(subscription: Subscription): string | null {
+    if (this.failedBrandIcons()[subscription.id]) {
+      return this.getWebsiteFaviconUrl(subscription);
+    }
+
+    if (subscription.iconSlug) {
+      const color = subscription.brandColor?.replace('#', '');
+      return color
+        ? `https://cdn.simpleicons.org/${subscription.iconSlug}/${color}`
+        : `https://cdn.simpleicons.org/${subscription.iconSlug}`;
+    }
+
+    return this.getWebsiteFaviconUrl(subscription);
+  }
+
+  handleBrandIconError(subscription: Subscription) {
+    if (!subscription.iconSlug) {
+      return;
+    }
+
+    this.failedBrandIcons.update((failed) => ({ ...failed, [subscription.id]: true }));
   }
 
   getCategoryName(category: string): string {
@@ -321,5 +363,13 @@ export class DashboardComponent {
 
   private getMonthlyComparablePrice(subscription: Subscription): number {
     return subscription.cycle === 'year' ? subscription.price / 12 : subscription.price;
+  }
+
+  private getWebsiteFaviconUrl(subscription: Subscription): string | null {
+    if (!subscription.website) {
+      return null;
+    }
+
+    return `https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(subscription.website)}`;
   }
 }

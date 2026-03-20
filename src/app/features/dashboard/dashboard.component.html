@@ -77,7 +77,16 @@
           <div class="subscription-row">
             <div class="subscription-row__main">
               <div class="subscription-row__icon-wrap">
-                <mat-icon>{{ getCategoryIcon(sub.category) }}</mat-icon>
+                @if (shouldShowBrandImage(sub)) {
+                  <img
+                    class="subscription-row__brand-image"
+                    [src]="getBrandIconUrl(sub)"
+                    [alt]="sub.name"
+                    (error)="handleBrandIconError(sub)"
+                  />
+                } @else {
+                  <mat-icon>{{ getCategoryIcon(sub.category) }}</mat-icon>
+                }
               </div>
               <div>
                 <h3 class="subscription-row__title">
@@ -114,8 +123,19 @@
               <button
                 mat-icon-button
                 type="button"
+                class="subscription-row__action"
+                [disabled]="!hasWebsite(sub)"
+                [matTooltip]="hasWebsite(sub) ? copy().manageAction : copy().manageUnavailable"
+                (click)="sub.website && openSubscriptionManagement(sub.website)"
+              >
+                <mat-icon>open_in_new</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
                 class="subscription-row__delete"
                 [attr.aria-label]="copy().deleteAction"
+                [matTooltip]="copy().deleteAction"
                 (click)="deleteSubscription(sub.id, sub.name)"
               >
                 <mat-icon>delete_outline</mat-icon>

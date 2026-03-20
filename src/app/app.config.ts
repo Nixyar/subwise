@@ -3,6 +3,7 @@ import {
   LOCALE_ID,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {provideRouter, withViewTransitions} from '@angular/router';
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
     provideNativeDateAdapter(),
     provideRouter(routes, withViewTransitions()),
     {provide: LOCALE_ID, useValue: 'ru-RU'},

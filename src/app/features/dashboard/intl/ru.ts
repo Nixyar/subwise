@@ -17,6 +17,8 @@ export const dashboardIntlRu: DashboardIntl = {
   billingDate: 'Списание: {date}',
   noSubscriptions: 'У тебя пока нет добавленных подписок.',
   addSubscriptionAction: 'Добавить подписку',
+  manageAction: 'Управление подпиской',
+  manageUnavailable: 'Ссылка на подписку не указана',
   deleteAction: 'Удалить',
   deleteConfirmTitle: 'Удалить подписку?',
   deleteConfirmDescription: 'Подписка будет удалена из списка без возможности восстановления.',

@@ -10,7 +10,22 @@
     <div class="form-grid">
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">
         <mat-label>{{ copy().name }}</mat-label>
-        <input matInput id="name" type="text" formControlName="name" [placeholder]="copy().namePlaceholder">
+        <input
+          matInput
+          id="name"
+          type="text"
+          formControlName="name"
+          [placeholder]="copy().namePlaceholder"
+          [matAutocomplete]="serviceAutocomplete"
+        >
+        <mat-autocomplete
+          #serviceAutocomplete="matAutocomplete"
+          (optionSelected)="applySuggestion($event.option.value)"
+        >
+          @for (suggestion of filteredSuggestions(); track suggestion.name) {
+            <mat-option [value]="suggestion.name">{{ suggestion.name }}</mat-option>
+          }
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
@@ -56,6 +71,17 @@
           <mat-option value="software">{{ getCategoryLabel('software') }}</mat-option>
           <mat-option value="other">{{ getCategoryLabel('other') }}</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">
+        <mat-label>{{ copy().website }}</mat-label>
+        <input
+          matInput
+          id="website"
+          type="url"
+          formControlName="website"
+          [placeholder]="copy().websitePlaceholder"
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field form-field--full">

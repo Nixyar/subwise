@@ -10,6 +10,8 @@ export const addSubscriptionIntlEs: AddSubscriptionIntl = {
   currency: 'Moneda',
   cycle: 'Periodo de cobro',
   category: 'Categoria',
+  website: 'Gestion de la suscripcion',
+  websitePlaceholder: 'https://...',
   nextBillingDate: 'Fecha del proximo cobro',
   isTrial: 'Este es un periodo de prueba',
   trialEndDate: 'Fecha de fin de la prueba',

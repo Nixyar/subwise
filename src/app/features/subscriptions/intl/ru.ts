@@ -10,6 +10,8 @@ export const addSubscriptionIntlRu: AddSubscriptionIntl = {
   currency: 'Валюта',
   cycle: 'Цикл оплаты',
   category: 'Категория',
+  website: 'Управление подпиской',
+  websitePlaceholder: 'https://...',
   nextBillingDate: 'Дата следующего списания',
   isTrial: 'Это пробный период',
   trialEndDate: 'Дата окончания пробного периода',

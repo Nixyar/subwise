@@ -20,4 +20,10 @@ export const languages: LanguageOption[] = [
     triggerLabel: 'ENG',
     enabled: true,
   },
+  {
+    code: 'es',
+    nativeLabel: 'Espanol',
+    triggerLabel: 'ESP',
+    enabled: true,
+  },
 ];

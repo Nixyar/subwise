@@ -10,6 +10,8 @@ export const addSubscriptionIntlEn: AddSubscriptionIntl = {
   currency: 'Currency',
   cycle: 'Billing cycle',
   category: 'Category',
+  website: 'Subscription management',
+  websitePlaceholder: 'https://...',
   nextBillingDate: 'Next billing date',
   isTrial: 'This is a trial period',
   trialEndDate: 'Trial end date',
